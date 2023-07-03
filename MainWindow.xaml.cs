@@ -43,7 +43,9 @@ namespace POE_Application_WPF
 
         private void DisplayButton_Click_1(object sender, RoutedEventArgs e)
         {
-
+            DisplayRecipe dr = new DisplayRecipe();
+            dr.Show();
+            Close();
         }
 
         private void ExitButton_Click(object sender, RoutedEventArgs e)

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -150,9 +151,11 @@ namespace POE_Application_WPF
 
         public void ResetQuantities()
         {
-            string answer = Interaction.InputBox("Do you want to reset the quantities to the original values? (y/n)").ToLower();    // Asks the user if they want to reset the recipe to its original quantities and reads their response.
+            // Asks the user if they want to reset the recipe to its original quantities and reads their response.
+            MessageBoxResult result = MessageBox.Show("Do you want to reset the quantities to the original values? (y/n)", "Reset quantities", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            
 
-            if (answer == "y")
+            if (result == MessageBoxResult.Yes)
             {
                 for (int i = 0; i < Ingredients.Count; i++)
                 {
@@ -162,7 +165,7 @@ namespace POE_Application_WPF
                 MessageBox.Show("The recipe quantities have been reset to their original values:", "Quantities Reset", MessageBoxButton.OK, MessageBoxImage.Information);
                 PrintRecipe();
             }
-            else if (answer == "n")
+            else if (result == MessageBoxResult.No)
             {
                 // Handle the case when the user's response is "n"
                 MessageBox.Show("The recipe quantities will not be reset.", "Quantities Not Reset", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -178,11 +181,13 @@ namespace POE_Application_WPF
 
         public void ClearRecipe() // Clear the recipe by resetting its properties and clearing the lists
         {
+            MessageBoxResult result = MessageBox.Show("Do you want to  clear the recipe? (y/n)", "Clear recipe", MessageBoxButton.YesNo, MessageBoxImage.Question);
+           
 
-            string answer = Interaction.InputBox("Do you want to  clear the recipe? (y/n)").ToLower();// Asks the user if they want to reset the recipe to its original quantities and reads their response.
-
-            if (answer == "y")
+             if (result == MessageBoxResult.Yes)
             {
+                string answer = Interaction.InputBox("Do you want to  clear the recipe? (y/n)").ToLower();// Asks the user if they want to reset the recipe to its original quantities and reads their response.
+
                 RecipeName = string.Empty;// Reset the recipe name to an empty string
                 Ingredients.Clear(); // Clear the Ingredients list, removing all elements
                 Steps.Clear(); // Clear the Steps list, removing all elements
@@ -191,7 +196,7 @@ namespace POE_Application_WPF
                 Console.WriteLine("\n The recipe has been cleared");
                 PrintRecipe();
             }
-            else if (answer == "n")
+            else if (result == MessageBoxResult.No)
             {
                 // Handle the case when the user's response is "n"
                 MessageBox.Show("The recipe will not be cleared.", "Recipe Not Cleared", MessageBoxButton.OK, MessageBoxImage.Information);

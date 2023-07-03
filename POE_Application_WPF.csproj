@@ -57,6 +57,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Delegate.cs" />
+    <Compile Include="DisplayRecipe.xaml.cs">
+      <DependentUpon>DisplayRecipe.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Ingredient.cs" />
     <Compile Include="Recipe.cs" />
     <Compile Include="RecipeCollection.cs" />
@@ -64,6 +67,10 @@
       <DependentUpon>RecipeList.xaml</DependentUpon>
     </Compile>
     <Page Include="AddRecipeWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DisplayRecipe.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -115,6 +122,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Menu.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="wallpaperflare.com_wallpaper.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -18,3 +18,5 @@ C:\Users\trent\source\repos\POE_Application_WPF\obj\Debug\AddRecipeWindow.g.cs
 C:\Users\trent\source\repos\POE_Application_WPF\obj\Debug\AddRecipeWindow.baml
 C:\Users\trent\source\repos\POE_Application_WPF\obj\Debug\RecipeList.g.cs
 C:\Users\trent\source\repos\POE_Application_WPF\obj\Debug\RecipeList.baml
+C:\Users\trent\source\repos\POE_Application_WPF\obj\Debug\DisplayRecipe.g.cs
+C:\Users\trent\source\repos\POE_Application_WPF\obj\Debug\DisplayRecipe.baml

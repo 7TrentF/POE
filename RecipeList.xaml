@@ -7,20 +7,44 @@
         mc:Ignorable="d"
         Title="RecipeList" Height="601" Width="1267" Background="#FF00F76E">
     <Grid>
-        <Label x:Name="RecipeListLable" Content="Recipes Currently Added:" HorizontalAlignment="Left" Margin="44,58,0,0" VerticalAlignment="Top" Background="White" Foreground="#FF00F90F" FontSize="18" FontWeight="Bold" Width="236"/>
-        <Button x:Name="List_Button" Content="List" HorizontalAlignment="Left" Margin="977,519,0,0" VerticalAlignment="Top" Height="34" Width="85" Click="List_Button_Click" RenderTransformOrigin="0.714,1.689"/>
-        <Button x:Name="Back_Button" Content="back" HorizontalAlignment="Left" Margin="1133,520,0,0" VerticalAlignment="Top" Height="22" Width="63" Click="Back_Button_Click"/>
+        <Rectangle x:Name="TextBoxRectangle" HorizontalAlignment="Left" Height="38" Margin="308,117,0,0" Stroke="Black" VerticalAlignment="Top" Width="632" Fill="#FFEDDFDF" RadiusX="5.5" RadiusY="5.5"/>
 
-        <ListView x:Name="RecipeListView" Margin="44,124,633,54" Background="White">
+
+
+        <Label x:Name="RecipeListLable" Content="Recipes Currently Added:" HorizontalAlignment="Left" Margin="24,61,0,0" VerticalAlignment="Top" Background="White" Foreground="#FF00F90F" FontSize="18" FontWeight="Bold" Width="236">
+            <Label.Effect>
+                <DropShadowEffect/>
+            </Label.Effect>
+        </Label>
+        <Button x:Name="List_Button" Content="List" HorizontalAlignment="Left" Margin="832,117,0,0" VerticalAlignment="Top" Height="34" Width="108" Click="List_Button_Click" RenderTransformOrigin="0.714,1.689" Background="#FF00F726" Foreground="White" FontSize="18" FontWeight="Bold">
+            <Button.Effect>
+                <DropShadowEffect/>
+            </Button.Effect>
+        </Button>
+        <Button x:Name="Back_Button" Content="Main Menu" HorizontalAlignment="Left" Margin="1050,424,0,0" VerticalAlignment="Top" Height="40" Width="150" Click="Back_Button_Click" FontSize="18" Background="#FF00F726" Foreground="White" FontWeight="Bold">
+            <Button.Effect>
+                <DropShadowEffect/>
+            </Button.Effect>
+        </Button>
+
+        <ListView x:Name="RecipeListView" Margin="308,167,327,121" Background="White" MouseDoubleClick="RecipeListView_MouseDoubleClick" SelectionChanged="RecipeListView_SelectionChanged">
+            <ListView.Resources>
+                <Style TargetType="GridViewColumnHeader">
+                    <Setter Property="FontSize" Value="16"/>
+                    <Setter Property="Margin" Value="8,0"/>
+                </Style>
+            </ListView.Resources>
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Recipe No." Width="Auto" DisplayMemberBinding="{Binding Count}"/>
                     <GridViewColumn Header="Recipe Name" Width="Auto" DisplayMemberBinding="{Binding RecipeName}"/>
                     <GridViewColumn Header="Total Calories" Width="Auto" DisplayMemberBinding="{Binding Calories}"/>
-
                 </GridView>
             </ListView.View>
         </ListView>
+
+
+        <TextBlock x:Name="Click_List_TextBlock" HorizontalAlignment="Left" Margin="308,122,0,0" TextWrapping="Wrap" Text="Click the List button to display the recipes added " VerticalAlignment="Top" FontSize="18" FontWeight="Bold" Foreground="#FF00F90F"/>
 
 
 
