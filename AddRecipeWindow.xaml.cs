@@ -88,15 +88,12 @@ namespace POE_Application_WPF
             }
         }
 
-        private  async void Print_Button_Click(object sender, RoutedEventArgs e)
+        private   void Print_Button_Click(object sender, RoutedEventArgs e)
         {
 
-            await RecipeCollection.Instance.EnterRecipeAsync(recipeName, numIngredients, numSteps);
+             RecipeCollection.Instance.EnterRecipeAsync(recipeName, numIngredients, numSteps);
 
-            MessageBox.Show("Recipe entered successfully.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
-
-            // Clear the recipe textboxes in the AddRecipeWindow after entering the recipe
-            ClearRecipeTextBoxes();
+           
 
         }
 

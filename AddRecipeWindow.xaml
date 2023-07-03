@@ -13,7 +13,7 @@
         </Grid.RowDefinitions>
         <Grid Margin="28,18,529,15" Grid.RowSpan="2">
             <Rectangle x:Name="Recipe_Enter_Rectangle" HorizontalAlignment="Left" Stroke="Black" Width="286" Fill="White" RadiusX="22.705" RadiusY="22.705" VerticalAlignment="Top" Height="397" Margin="0,18,0,0"/>
-            <TextBlock x:Name="EnterTextBlock" Margin="45,29,0,282" TextWrapping="Wrap" RenderTransformOrigin="0.385,0.949" FontSize="20" FontWeight="Bold" HorizontalAlignment="Left" Width="173"><Run Text="Enter"/><Run Language="en-za" Text=" The following details:"/><Run Text=" "/><Run Text=" "/></TextBlock>
+            <TextBlock x:Name="EnterTextBlock" Margin="45,29,0,282" TextWrapping="Wrap" RenderTransformOrigin="0.385,0.949" FontSize="20" FontWeight="Bold" HorizontalAlignment="Left" Width="173"><Run Language="en-za" Text="Create Recipe"/></TextBlock>
             <TextBox x:Name="Recipe_Name_TextBox" HorizontalAlignment="Left" Margin="45,124,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="185" TextChanged="RecipeNameTextBox_TextChanged" OpacityMask="White" BorderBrush="Black" Height="24" BorderThickness="2,1,2,1"/>
             <TextBlock x:Name="RecipeNameTextBlock" HorizontalAlignment="Left" Margin="45,103,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="24" Width="70" RenderTransformOrigin="0.385,0.949" FontSize="14" Text="Recipe name:" FontWeight="Bold"/>
             <TextBlock x:Name="Number_of_IngredientsTextBlock" HorizontalAlignment="Left" Margin="45,173,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14" Height="27" Width="272" FontWeight="Bold"><Run Text="Number of Ingredients"/><Run Language="en-za" Text=":"/></TextBlock>

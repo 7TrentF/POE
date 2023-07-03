@@ -30,6 +30,19 @@ namespace POE_Application_WPF
         {
             RecipeCollection.Instance.DisplayRecipeList();
 
+            RecipeListView.Items.Clear(); // Clear the ListView
+
+            int count = 1; // Initialize a count variable
+
+            foreach (var recipe in RecipeCollection.Instance.GetRecipes())
+            {
+                string recipeText = recipe.RecipeName;
+                int calories = recipe.GetTotalCalories(); // Get the total number of calories for the recipe
+
+                RecipeListView.Items.Add(new { Count = count, RecipeName = recipeText, Calories = calories }); // Add count, recipe name, and calories to the anonymous object and add it to the ListView
+
+                count++; // Increment the count
+            }
         }
 
         private void Back_Button_Click(object sender, RoutedEventArgs e)

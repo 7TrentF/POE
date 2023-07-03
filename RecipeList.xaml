@@ -7,9 +7,22 @@
         mc:Ignorable="d"
         Title="RecipeList" Height="601" Width="1267" Background="#FF00F76E">
     <Grid>
-        <Label x:Name="RecipeListLable" Content="Recipes" HorizontalAlignment="Left" Margin="44,58,0,0" VerticalAlignment="Top" Background="White" Foreground="#FF00F90F" FontSize="18" FontWeight="Bold"/>
-        <Button x:Name="List_Button" Content="List" HorizontalAlignment="Left" Margin="556,327,0,0" VerticalAlignment="Top" Height="34" Width="85" Click="List_Button_Click"/>
-        <Button x:Name="Back_Button" Content="back" HorizontalAlignment="Left" Margin="679,339,0,0" VerticalAlignment="Top" Height="22" Width="63" Click="Back_Button_Click"/>
+        <Label x:Name="RecipeListLable" Content="Recipes Currently Added:" HorizontalAlignment="Left" Margin="44,58,0,0" VerticalAlignment="Top" Background="White" Foreground="#FF00F90F" FontSize="18" FontWeight="Bold" Width="236"/>
+        <Button x:Name="List_Button" Content="List" HorizontalAlignment="Left" Margin="977,519,0,0" VerticalAlignment="Top" Height="34" Width="85" Click="List_Button_Click" RenderTransformOrigin="0.714,1.689"/>
+        <Button x:Name="Back_Button" Content="back" HorizontalAlignment="Left" Margin="1133,520,0,0" VerticalAlignment="Top" Height="22" Width="63" Click="Back_Button_Click"/>
+
+        <ListView x:Name="RecipeListView" Margin="44,124,633,54" Background="White">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Recipe No." Width="Auto" DisplayMemberBinding="{Binding Count}"/>
+                    <GridViewColumn Header="Recipe Name" Width="Auto" DisplayMemberBinding="{Binding RecipeName}"/>
+                    <GridViewColumn Header="Total Calories" Width="Auto" DisplayMemberBinding="{Binding Calories}"/>
+
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+
 
     </Grid>
 </Window>

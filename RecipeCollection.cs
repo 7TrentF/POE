@@ -12,116 +12,115 @@ namespace POE_Application_WPF
       public class RecipeCollection
     {
         AddRecipeWindow arw = new AddRecipeWindow();
-        private static RecipeCollection instance;
-
+        private static RecipeCollection instance; // Singleton instance of the RecipeCollection class
         private List<Recipe> recipes; // Private field to store the list of recipes
 
         public static RecipeCollection Instance
         {
             get
             {
-                if (instance == null)
+                if (instance == null) // Check if the instance is null
                 {
-                    instance = new RecipeCollection();
+                    instance = new RecipeCollection(); // Create a new instance if it doesn't exist
                 }
-                return instance;
+                return instance; // Return the instance
             }
         }
 
-        private RecipeCollection()// Constructor to initialize the recipe collection
+        private RecipeCollection()
         {
             recipes = new List<Recipe>(); // Creates an empty list of recipes
-
-            /*Author: Doyle, B. (2016) 
-              title of the book: C♯ Programming: From problem analysis to program design.Boston, MA: Cengage Learning. pg 477
-              accessed:  2 june 2023
-            */
         }
 
-        public async Task EnterRecipeAsync(string recipeName, int numIngredients, int numSteps)
+        public List<Recipe> GetRecipes()
+        {
+            return recipes; // Return the list of recipes
+        }
+
+        public void EnterRecipeAsync(string recipeName, int numIngredients, int numSteps)
         {
             Recipe recipe = new Recipe(recipeName); // Create a new Recipe object with the entered name
-            Delegate d = new Delegate();
+            Delegate d = new Delegate(); // Create a new instance of the Delegate class (assuming this is a custom class)
+
             MessageBox.Show("Enter the Details for the recipe", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
 
             for (int i = 0; i < numIngredients; i++)
             {
+                // Prompt the user to enter the name of the ingredient
+                string ingredientName = Interaction.InputBox($"Enter the name of ingredient {i + 1}:");
 
-                MessageBox.Show($"Enter the name of ingredient {i + 1}:", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
-
-                // Wait for the user to input data for the ingredient name asynchronously
-                await WaitForTextBoxInput(arw.Ingredient_Name_TextBox);
-
-                // Retrieve values from the textboxes in AddRecipeWindow
-                string ingredientName = arw.Ingredient_Name_TextBox.Text;
-
-                // Check if the ingredient name is populated
-                if (string.IsNullOrWhiteSpace(ingredientName))
+                double quantity;
+                while (true)
                 {
-                    MessageBox.Show("Please enter a valid ingredient name.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return;
+                    try
+                    {
+                        // Prompt the user to enter the quantity of the ingredient and convert it to double
+                        quantity = Convert.ToDouble(Interaction.InputBox($"Enter the quantity of ingredient {i + 1}:"));
+                        break; // Exit the loop if conversion succeeds
+                    }
+                    catch (FormatException)
+                    {
+                        // Display error message and prompt the user to re-enter the value
+                        MessageBox.Show("Invalid input! Please enter a valid quantity.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
                 }
 
-                MessageBox.Show($"Enter the quantity of ingredient {i + 1}:", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
-
-                // Wait for the user to input data for the quantity asynchronously
-                await WaitForTextBoxInput(arw.Quantity_TextBox);
-
-                int quantity;
-                if (!int.TryParse(arw.Quantity_TextBox.Text, out quantity))
-                {
-                    MessageBox.Show("Invalid input! Please enter a valid quantity.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return;
-                }
-
-                if (quantity % 1 != 0)
-                {
-                    MessageBox.Show("Invalid input! Please enter a valid quantity.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return;
-                }
-
-                // Retrieve values for other properties
-                string unit = arw.Unit_Of_measurment_TextBox.Text;
-
-                // Wait for the user to input data for calories asynchronously
-                await WaitForTextBoxInput(arw.Calories_TextBox);
+                // Prompt the user to enter the unit of measurement for the ingredient
+                string unit = Interaction.InputBox($"Enter the unit of measurement for ingredient {i + 1}:");
 
                 int calories;
-                if (!int.TryParse(arw.Calories_TextBox.Text, out calories))
+                while (true)
                 {
-                    MessageBox.Show("Invalid input! Please enter a valid number of calories.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return;
-                }
-
-                if (calories % 1 != 0)
-                {
-                    MessageBox.Show("Invalid input! Please enter a valid number of calories.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return;
+                    try
+                    {
+                        // Prompt the user to enter the number of calories for the ingredient and convert it to int
+                        calories = Convert.ToInt32(Interaction.InputBox($"Enter the number of calories for ingredient {i + 1}:"));
+                        break; // Exit the loop if conversion succeeds
+                    }
+                    catch (FormatException)
+                    {
+                        // Display error message and prompt the user to re-enter the value
+                        MessageBox.Show("Invalid input! Please enter a valid number of calories.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
                 }
 
                 int foodGroupNumber;
-                if (!int.TryParse(arw.Food_Group_TextBox.Text, out foodGroupNumber))
+                while (true)
                 {
-                    MessageBox.Show("Invalid input! Please enter a valid food group number.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return;
+                    try
+                    {
+                        // Prompt the user to enter the food group number that the ingredient belongs to
+                        // and convert it to int
+                        foodGroupNumber = Convert.ToInt32(Interaction.InputBox($"Enter the food group number that the ingredient belongs to {i + 1}:" +
+                                                                               "Options:\n" +
+                                                                               "1. Fruits\n" +
+                                                                               "2. Vegetables\n" +
+                                                                               "3. Grains\n" +
+                                                                               "4. Protein\n" +
+                                                                               "5. Dairy\n" +
+                                                                               "6. Fats and Oils"));
+                        string foodGroup = recipe.GetFoodGroupName(foodGroupNumber);
+                        recipe.AddIngredient(ingredientName, quantity, unit, calories, foodGroup);
+                        recipe.OriginalQuantities.Add(quantity);
+
+                        break; // Exit the loop if conversion and mapping succeed
+                    }
+                    catch (FormatException)
+                    {
+                        // Display error message and prompt the user to re-enter the value
+                        MessageBox.Show("Invalid input! Please enter a valid food group number.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
                 }
-
-                string foodGroup = recipe.GetFoodGroupName(foodGroupNumber);
-                recipe.AddIngredient(ingredientName, quantity, unit, calories, foodGroup);
-                recipe.OriginalQuantities.Add(quantity);
-
-                // Clear the ingredient textboxes in the AddRecipeWindow after each iteration
-                arw.ClearIngredientTextBoxes();
             }
 
             for (int i = 0; i < numSteps; i++)
             {
+                // Prompt the user to enter each step of the recipe
                 string step = Interaction.InputBox($"\nEnter step {i + 1}:");
                 recipe.AddStep(step);
             }
 
             int totalCalories = recipe.GetTotalCalories();
-
             if (totalCalories >= 300) // Check if the total calories exceed 300
             {
                 d.NotifyUserExceededCalories(recipe.RecipeName, totalCalories);
@@ -129,22 +128,34 @@ namespace POE_Application_WPF
 
             MessageBox.Show("\nRecipe added successfully!");
 
-            recipe.PrintRecipe();    // Calls PrintRecipe method from Recipe class and prints the current recipe.
-            recipes.Add(recipe);     // Method that adds the current recipe to the list of recipes.
+            // Create a new instance of the AddRecipeWindow class
+            AddRecipeWindow arw = new AddRecipeWindow();
 
+            recipe.PrintRecipe(); // Calls the PrintRecipe method from the Recipe class and prints the current recipe.
 
-            // recipe.ResetQuantities();// Method that resets the quantities of all ingredients in the recipe to their original values.
-            // recipe.ClearRecipe();    // Method that clears the  current recipe. 
+            //recipe.ScaleRecipe(factor);
+            // arw.ScaleRecipePrompt();
 
-
+            recipes.Add(recipe); // Add the current recipe to the list of recipes
 
             StringBuilder recipeNames = new StringBuilder("Recipe added:\n");
             foreach (Recipe r in recipes)
             {
                 recipeNames.AppendLine(r.RecipeName);
             }
+
+            // Display a message box with the names of all the added recipes
             MessageBox.Show(recipeNames.ToString(), "Added Recipes", MessageBoxButton.OK, MessageBoxImage.Information);
+
+            MessageBoxResult result = MessageBox.Show("Do you want to enter another recipe?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                // Prompt the user to enter the recipe details on the Create Recipe panel and click Enter
+                MessageBox.Show("Please enter the recipe details on the Create Recipe panel and click Enter.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
         }
+
 
         private Task WaitForTextBoxInput(TextBox textBox)
         {

@@ -8,7 +8,7 @@ using System.Windows;
 
 namespace POE_Application_WPF
 {
-    internal class Recipe
+    public class Recipe
     {
 
         public string RecipeName { get; set; }              // Name of the recipe

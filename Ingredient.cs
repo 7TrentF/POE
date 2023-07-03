@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace POE_Application_WPF
 {
-    internal class Ingredient
+    public class Ingredient
     {
         public string Name { get; set; }       //Public string to store the name of the ingredient 
                                                //Allow the variable to be read and modified from outside the ingredient 
