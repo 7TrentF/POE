@@ -24,6 +24,7 @@ namespace POE_Application_WPF
         public int numSteps;
         public int numIngredients;
         public string IngredientName;
+        private bool ingredientNameEntered = false; // Flag to track if ingredient name is entered
         public double Quantity;
         public string Unit;
         public int Calories;
@@ -87,16 +88,16 @@ namespace POE_Application_WPF
             }
         }
 
-        private void Print_Button_Click(object sender, RoutedEventArgs e)
+        private  async void Print_Button_Click(object sender, RoutedEventArgs e)
         {
 
+            await RecipeCollection.Instance.EnterRecipeAsync(recipeName, numIngredients, numSteps);
 
+            MessageBox.Show("Recipe entered successfully.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
 
-            RecipeCollection.Instance.EnterRecipe( recipeName,  numIngredients,  numSteps);
+            // Clear the recipe textboxes in the AddRecipeWindow after entering the recipe
+            ClearRecipeTextBoxes();
 
-                // Clear the recipe textboxes in the AddRecipeWindow after entering the recipe
-              //  ClearRecipeTextBoxes();
-           
         }
 
         private void HideGridButton_Click(object sender, RoutedEventArgs e)
@@ -121,11 +122,23 @@ namespace POE_Application_WPF
         private void Ingredient_Name_TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             IngredientName = Ingredient_Name_TextBox.Text;
+            ingredientNameEntered = true; // Set the flag to true when ingredient name is entered
         }
 
         private void Quantity_TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             Quantity = Convert.ToInt32(Quantity_TextBox.Text);
+            if (ingredientNameEntered) // Check if ingredient name is entered
+        {
+            Quantity = Convert.ToInt32(Quantity_TextBox.Text);
+        }
+        else
+        {
+            // Display an error message or handle it appropriately
+            MessageBox.Show("Please enter the ingredient name first.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            Quantity_TextBox.Text = string.Empty; // Clear the quantity text box
+        }
+
         }
 
         private void Unit_Of_measurment_TextBox_TextChanged(object sender, TextChangedEventArgs e)

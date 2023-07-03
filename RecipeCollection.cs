@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace POE_Application_WPF
 {
@@ -37,7 +38,7 @@ namespace POE_Application_WPF
             */
         }
 
-        public void EnterRecipe(string recipeName, int numIngredients, int numSteps)
+        public async Task EnterRecipeAsync(string recipeName, int numIngredients, int numSteps)
         {
             Recipe recipe = new Recipe(recipeName); // Create a new Recipe object with the entered name
             Delegate d = new Delegate();
@@ -45,40 +46,73 @@ namespace POE_Application_WPF
 
             for (int i = 0; i < numIngredients; i++)
             {
-                // Retrieve values from the textboxes in AddRecipeWindow
-                   string ingredientName = arw.Ingredient_Name_TextBox.Text;
 
-                   int quantity = Convert.ToInt32(arw.Quantity_TextBox.Text);
+                MessageBox.Show($"Enter the name of ingredient {i + 1}:", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                // Wait for the user to input data for the ingredient name asynchronously
+                await WaitForTextBoxInput(arw.Ingredient_Name_TextBox);
+
+                // Retrieve values from the textboxes in AddRecipeWindow
+                string ingredientName = arw.Ingredient_Name_TextBox.Text;
+
+                // Check if the ingredient name is populated
+                if (string.IsNullOrWhiteSpace(ingredientName))
+                {
+                    MessageBox.Show("Please enter a valid ingredient name.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
+                MessageBox.Show($"Enter the quantity of ingredient {i + 1}:", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                // Wait for the user to input data for the quantity asynchronously
+                await WaitForTextBoxInput(arw.Quantity_TextBox);
+
+                int quantity;
+                if (!int.TryParse(arw.Quantity_TextBox.Text, out quantity))
+                {
+                    MessageBox.Show("Invalid input! Please enter a valid quantity.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
                 if (quantity % 1 != 0)
                 {
                     MessageBox.Show("Invalid input! Please enter a valid quantity.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
-                
-                   string unit = arw.Unit_Of_measurment_TextBox.Text;
-               
-                   int calories = Convert.ToInt32(arw.Calories_TextBox.Text);
+
+                // Retrieve values for other properties
+                string unit = arw.Unit_Of_measurment_TextBox.Text;
+
+                // Wait for the user to input data for calories asynchronously
+                await WaitForTextBoxInput(arw.Calories_TextBox);
+
+                int calories;
+                if (!int.TryParse(arw.Calories_TextBox.Text, out calories))
+                {
+                    MessageBox.Show("Invalid input! Please enter a valid number of calories.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
                 if (calories % 1 != 0)
                 {
                     MessageBox.Show("Invalid input! Please enter a valid number of calories.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
-               
-                     int foodGroupNumber;
+
+                int foodGroupNumber;
                 if (!int.TryParse(arw.Food_Group_TextBox.Text, out foodGroupNumber))
                 {
                     MessageBox.Show("Invalid input! Please enter a valid food group number.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
-               
-                 string   foodGroup = recipe.GetFoodGroupName(foodGroupNumber);
+
+                string foodGroup = recipe.GetFoodGroupName(foodGroupNumber);
                 recipe.AddIngredient(ingredientName, quantity, unit, calories, foodGroup);
                 recipe.OriginalQuantities.Add(quantity);
 
                 // Clear the ingredient textboxes in the AddRecipeWindow after each iteration
-                    arw.ClearIngredientTextBoxes();
+                arw.ClearIngredientTextBoxes();
             }
-
 
             for (int i = 0; i < numSteps; i++)
             {
@@ -94,7 +128,7 @@ namespace POE_Application_WPF
             }
 
             MessageBox.Show("\nRecipe added successfully!");
-          
+
             recipe.PrintRecipe();    // Calls PrintRecipe method from Recipe class and prints the current recipe.
             recipes.Add(recipe);     // Method that adds the current recipe to the list of recipes.
 
@@ -110,6 +144,22 @@ namespace POE_Application_WPF
                 recipeNames.AppendLine(r.RecipeName);
             }
             MessageBox.Show(recipeNames.ToString(), "Added Recipes", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private Task WaitForTextBoxInput(TextBox textBox)
+        {
+            var tcs = new TaskCompletionSource<bool>();
+
+            // Create a text changed event handler
+            void textChangedEventHandler(object sender, TextChangedEventArgs e)
+            {
+                textBox.TextChanged -= textChangedEventHandler; // Unsubscribe the event handler
+                tcs.SetResult(true); // Set the task completion source to signal completion
+            }
+
+            textBox.TextChanged += textChangedEventHandler; // Subscribe the event handler
+
+            return tcs.Task;
         }
 
         public void DisplayRecipeList() // Displays a list of all recipes that the user added.

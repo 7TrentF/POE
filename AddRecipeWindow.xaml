@@ -27,6 +27,8 @@
                 </Button.Effect>
             </Button>
 
+
+
             <Button x:Name="HideGridButton" Content="Clear" HorizontalAlignment="Left" Margin="181,346,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.888,1.932" FontSize="14" Background="#FF00F708" Foreground="White" Click="HideGridButton_Click" Height="20" Width="71">
                 <Button.Effect>
                     <DropShadowEffect/>
