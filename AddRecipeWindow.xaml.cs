@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -22,8 +23,13 @@ namespace POE_Application_WPF
         public string recipeName;
         public int numSteps;
         public int numIngredients;
+        public string IngredientName;
+        public double Quantity;
+        public string Unit;
+        public int Calories;
+        public string FoodGroup;
         public double factor;
-       
+
 
         public AddRecipeWindow()
         {
@@ -84,8 +90,13 @@ namespace POE_Application_WPF
         private void Print_Button_Click(object sender, RoutedEventArgs e)
         {
 
-            RecipeCollection.Instance.EnterRecipe(recipeName, numIngredients, numSteps);
 
+
+            RecipeCollection.Instance.EnterRecipe( recipeName,  numIngredients,  numSteps);
+
+                // Clear the recipe textboxes in the AddRecipeWindow after entering the recipe
+              //  ClearRecipeTextBoxes();
+           
         }
 
         private void HideGridButton_Click(object sender, RoutedEventArgs e)
@@ -109,27 +120,43 @@ namespace POE_Application_WPF
 
         private void Ingredient_Name_TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            
+            IngredientName = Ingredient_Name_TextBox.Text;
         }
 
         private void Quantity_TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-
+            Quantity = Convert.ToInt32(Quantity_TextBox.Text);
         }
 
         private void Unit_Of_measurment_TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-
+            Unit= Quantity_TextBox.Text;
         }
 
         private void Calories_TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-
+            Calories = Convert.ToInt32( Calories_TextBox.Text);
         }
 
         private void Food_Group_TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
+            FoodGroup = Food_Group_TextBox.Text;
+        }
 
+        private void ClearRecipeTextBoxes()
+        {
+            Recipe_Name_TextBox.Text = string.Empty;
+            Num_Of_Ingredients_TextBox.Text = string.Empty;
+            Number_Of_Steps_TextBox.Text = string.Empty;
+        }
+
+       public void ClearIngredientTextBoxes()
+        {
+            Ingredient_Name_TextBox.Text = string.Empty;
+            Quantity_TextBox.Text = string.Empty;
+            Unit_Of_measurment_TextBox.Text = string.Empty;
+            Calories_TextBox.Text = string.Empty;
+            Food_Group_TextBox.Text = string.Empty;
         }
     }
 }

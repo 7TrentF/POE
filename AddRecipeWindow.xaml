@@ -47,7 +47,7 @@
                 </TransformGroup>
             </Button.RenderTransform>
         </Button>
-        <Button x:Name="List" Content="Button" HorizontalAlignment="Left" Margin="80,491,0,0" VerticalAlignment="Top" Height="30" Width="106" Background="#FF00F704" Foreground="White" Click="List_Click"/>
+        <Button x:Name="List" Content="Button" HorizontalAlignment="Left" Margin="28,541,0,0" VerticalAlignment="Top" Height="30" Width="106" Background="#FF00F704" Foreground="White" Click="List_Click"/>
         <Grid Margin="436,32,435,60">
             <Rectangle x:Name="IngredientRectangle" HorizontalAlignment="Left" Height="459" Stroke="Black" VerticalAlignment="Top" Width="386" RadiusX="20.3" RadiusY="20.3" Fill="White"/>
             <TextBlock x:Name="Ingredient_TextBlock" HorizontalAlignment="Left" Margin="26,25,0,0" TextWrapping="Wrap" Text="Ingredient Details" VerticalAlignment="Top" FontSize="18" FontWeight="Bold"/>
@@ -63,6 +63,10 @@
             <TextBox x:Name="Calories_TextBox" Margin="198,287,0,0" TextWrapping="Wrap" VerticalAlignment="Top" RenderTransformOrigin="0.749,0.545" TextChanged="Calories_TextBox_TextChanged" HorizontalAlignment="Left" Width="120" BorderThickness="2,2,2,2"/>
             <TextBox x:Name="Food_Group_TextBox" HorizontalAlignment="Left" Margin="198,351,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="Food_Group_TextBox_TextChanged" BorderThickness="2,2,2,2"/>
 
+        </Grid>
+        <Grid x:Name="Steps_Grid" Margin="870,0,59,75">
+            <Rectangle x:Name="Steps_Rectangle" HorizontalAlignment="Center" Height="486" Stroke="Black" VerticalAlignment="Top" Width="318" RadiusX="29" RadiusY="29" Margin="0,20,0,0" Fill="White"/>
+            <TextBlock x:Name="Steps_TextBlock" HorizontalAlignment="Left" Margin="39,57,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="44" Width="130" FontSize="18" FontWeight="Bold" Text="Enter the Step"/>
         </Grid>
 
     </Grid>

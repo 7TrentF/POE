@@ -10,6 +10,7 @@ namespace POE_Application_WPF
 {
       public class RecipeCollection
     {
+        AddRecipeWindow arw = new AddRecipeWindow();
         private static RecipeCollection instance;
 
         private List<Recipe> recipes; // Private field to store the list of recipes
@@ -36,79 +37,48 @@ namespace POE_Application_WPF
             */
         }
 
-        public void EnterRecipe(String RecipeName, int numIngredients, int numSteps)
+        public void EnterRecipe(string recipeName, int numIngredients, int numSteps)
         {
-
-            Recipe recipe = new Recipe(RecipeName); // Create a new Recipe object with the entered name
+            Recipe recipe = new Recipe(recipeName); // Create a new Recipe object with the entered name
             Delegate d = new Delegate();
+            MessageBox.Show("Enter the Details for the recipe", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
 
             for (int i = 0; i < numIngredients; i++)
             {
-                string ingredientName = Interaction.InputBox($"Enter the name of ingredient {i + 1}:");
+                // Retrieve values from the textboxes in AddRecipeWindow
+                   string ingredientName = arw.Ingredient_Name_TextBox.Text;
 
-                double quantity;
-                while (true)
+                   int quantity = Convert.ToInt32(arw.Quantity_TextBox.Text);
+                if (quantity % 1 != 0)
                 {
-                    try
-                    {
-                        quantity = Convert.ToDouble(Interaction.InputBox($"Enter the quantity of ingredient {i + 1}:"));
-                        break; // Exit the loop if conversion succeeds
-                    }
-                    catch (FormatException)
-                    {
-                        // Display error message and prompt the user to re-enter the value
-                        MessageBox.Show("Invalid input! Please enter a valid quantity.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    }
+                    MessageBox.Show("Invalid input! Please enter a valid quantity.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
                 }
-
-                string unit = Interaction.InputBox($"Enter the unit of measurement for ingredient {i + 1}:");
-
-                int calories;
-                while (true)
+                
+                   string unit = arw.Unit_Of_measurment_TextBox.Text;
+               
+                   int calories = Convert.ToInt32(arw.Calories_TextBox.Text);
+                if (calories % 1 != 0)
                 {
-                    try
-                    {
-                        calories = Convert.ToInt32(Interaction.InputBox($"Enter the number of calories for ingredient {i + 1}:"));
-                        break; // Exit the loop if conversion succeeds
-                    }
-                    catch (FormatException)
-                    {
-                        // Display error message and prompt the user to re-enter the value
-                        MessageBox.Show("Invalid input! Please enter a valid number of calories.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    }
+                    MessageBox.Show("Invalid input! Please enter a valid number of calories.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
                 }
-
-                int foodGroupNumber;
-                while (true)
+               
+                     int foodGroupNumber;
+                if (!int.TryParse(arw.Food_Group_TextBox.Text, out foodGroupNumber))
                 {
-                    try
-                    {
-                        foodGroupNumber = Convert.ToInt32(Interaction.InputBox($"Enter the food group number that the ingredient belongs to {i + 1}:" +
-                                                                               "Options:\n" +
-                                                                               "1. Fruits\n" +
-                                                                               "2. Vegetables\n" +
-                                                                               "3. Grains\n" +
-                                                                               "4. Protein\n" +
-                                                                               "5. Dairy\n" +
-                                                                               "6. Fats and Oils"));
-                        string foodGroup = recipe.GetFoodGroupName(foodGroupNumber);
-                        recipe.AddIngredient(ingredientName, quantity, unit, calories, foodGroup);
-                        recipe.OriginalQuantities.Add(quantity);
-
-                        break; // Exit the loop if conversion and mapping succeed
-                    }
-                    catch (FormatException)
-                    {
-                        // Display error message and prompt the user to re-enter the value
-                        MessageBox.Show("Invalid input! Please enter a valid food group number.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    }
-
-
+                    MessageBox.Show("Invalid input! Please enter a valid food group number.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
                 }
+               
+                 string   foodGroup = recipe.GetFoodGroupName(foodGroupNumber);
+                recipe.AddIngredient(ingredientName, quantity, unit, calories, foodGroup);
+                recipe.OriginalQuantities.Add(quantity);
 
-
-
+                // Clear the ingredient textboxes in the AddRecipeWindow after each iteration
+                    arw.ClearIngredientTextBoxes();
             }
+
 
             for (int i = 0; i < numSteps; i++)
             {
