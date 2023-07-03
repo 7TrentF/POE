@@ -37,7 +37,7 @@ namespace POE_Application_WPF
             return recipes; // Return the list of recipes
         }
 
-        public void EnterRecipeAsync(string recipeName, int numIngredients, int numSteps)
+        public void EnterRecipe(string recipeName, int numIngredients, int numSteps)
         {
             Recipe recipe = new Recipe(recipeName); // Create a new Recipe object with the entered name
             Delegate d = new Delegate(); // Create a new instance of the Delegate class (assuming this is a custom class)
@@ -127,16 +127,12 @@ namespace POE_Application_WPF
             }
 
             MessageBox.Show("\nRecipe added successfully!");
-
-            // Create a new instance of the AddRecipeWindow class
-            AddRecipeWindow arw = new AddRecipeWindow();
-
             recipe.PrintRecipe(); // Calls the PrintRecipe method from the Recipe class and prints the current recipe.
-
-            //recipe.ScaleRecipe(factor);
-            // arw.ScaleRecipePrompt();
-
+            recipe.ScaleRecipe();
+            recipe.ResetQuantities();// Method that resets the quantities of all ingredients in the recipe to their original values.
+            recipe.ClearRecipe();    // Method that clears the  current recipe. 
             recipes.Add(recipe); // Add the current recipe to the list of recipes
+
 
             StringBuilder recipeNames = new StringBuilder("Recipe added:\n");
             foreach (Recipe r in recipes)
@@ -147,31 +143,17 @@ namespace POE_Application_WPF
             // Display a message box with the names of all the added recipes
             MessageBox.Show(recipeNames.ToString(), "Added Recipes", MessageBoxButton.OK, MessageBoxImage.Information);
 
-            MessageBoxResult result = MessageBox.Show("Do you want to enter another recipe?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
-            if (result == MessageBoxResult.Yes)
+
+            MessageBoxResult enterRecipe = MessageBox.Show("Do you want to enter another recipe?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (enterRecipe == MessageBoxResult.Yes)
             {
                 // Prompt the user to enter the recipe details on the Create Recipe panel and click Enter
                 MessageBox.Show("Please enter the recipe details on the Create Recipe panel and click Enter.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
-
-
-        private Task WaitForTextBoxInput(TextBox textBox)
-        {
-            var tcs = new TaskCompletionSource<bool>();
-
-            // Create a text changed event handler
-            void textChangedEventHandler(object sender, TextChangedEventArgs e)
-            {
-                textBox.TextChanged -= textChangedEventHandler; // Unsubscribe the event handler
-                tcs.SetResult(true); // Set the task completion source to signal completion
-            }
-
-            textBox.TextChanged += textChangedEventHandler; // Subscribe the event handler
-
-            return tcs.Task;
-        }
+ 
 
         public void DisplayRecipeList() // Displays a list of all recipes that the user added.
         {

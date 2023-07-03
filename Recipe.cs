@@ -45,40 +45,67 @@ namespace POE_Application_WPF
         }
 
 
-        public void ScaleRecipe(double factor)
+        public void ScaleRecipe()
         {
+            MessageBoxResult result = MessageBox.Show("Do you want to scale the recipe?", "Scale Recipe", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.Yes)
+            {
+                bool validInput = false;
+                double factor = 0;
 
-            if (factor == 0.5) // If the factor is 0.5, multiply by 0.5 
-            {
-                for (int i = 0; i < Ingredients.Count; i++)
+                while (!validInput)
                 {
-                    Ingredient ingredient = Ingredients[i];
-                    ingredient.Quantity *= 0.5;
-                }
-            }
-            else if (factor == 2) // If the scaling factor is 2 (double)
-            {
-                for (int i = 0; i < Ingredients.Count; i++)
-                {
-                    Ingredient ingredient = Ingredients[i];
-                    ingredient.Quantity *= 2;
-                }
-            }
-            else if (factor == 3) // If the scaling factor is 3 (triple)
-            {
-                for (int i = 0; i < Ingredients.Count; i++)
-                {
-                    Ingredient ingredient = Ingredients[i];
-                    ingredient.Quantity *= 3;
-                }
-                /*John S
-                  https://stackoverflow.com/questions/2675196/c-sharp-method-to-scale-values
-                  accessed: 24 april 2023
-                */
-            }
-            //MessageBox.Show("Scaled Recipe", "Scaled Recipe", MessageBoxButton.OK, MessageBoxImage.Information);
-            PrintRecipe(); // Prints the scaled recipe to the console.
+                    string input = Interaction.InputBox("Enter the scaling factor:\n0.5 (Half)\n2 (Double)\n3 (Triple):", "Scaling Factor");
 
+                    try
+                    {
+                        factor = Convert.ToDouble(input);
+
+                        if (factor == 0.5 || factor == 2 || factor == 3)
+                        {
+                            validInput = true;
+                        }
+                        else
+                        {
+                            MessageBox.Show("Invalid input. Please enter 0.5, 2, or 3.", "Invalid Input", MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
+                    }
+                    catch (FormatException)
+                    {
+                        MessageBox.Show("Invalid input. Please enter a valid number.", "Invalid Input", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                    catch (OverflowException)
+                    {
+                        MessageBox.Show("Invalid input. The number is too large or too small.", "Invalid Input", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+
+                if (factor == 0.5) // If the factor is 0.5, multiply by 0.5 
+                {
+                    for (int i = 0; i < Ingredients.Count; i++)
+                    {
+                        Ingredient ingredient = Ingredients[i];
+                        ingredient.Quantity *= 0.5;
+                    }
+                }
+                else if (factor == 2) // If the scaling factor is 2 (double)
+                {
+                    for (int i = 0; i < Ingredients.Count; i++)
+                    {
+                        Ingredient ingredient = Ingredients[i];
+                        ingredient.Quantity *= 2;
+                    }
+                }
+                else if (factor == 3) // If the scaling factor is 3 (triple)
+                {
+                    for (int i = 0; i < Ingredients.Count; i++)
+                    {
+                        Ingredient ingredient = Ingredients[i];
+                        ingredient.Quantity *= 3;
+                    }
+                }
+                 PrintRecipe(); // Prints the scaled recipe to the console.
+            }
         }
 
         public void PrintRecipe()

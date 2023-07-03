@@ -20,6 +20,8 @@ namespace POE_Application_WPF
     /// </summary>
     public partial class AddRecipeWindow : Window
     {
+      
+
         public string recipeName;
         public int numSteps;
         public int numIngredients;
@@ -91,7 +93,7 @@ namespace POE_Application_WPF
         private   void Print_Button_Click(object sender, RoutedEventArgs e)
         {
 
-             RecipeCollection.Instance.EnterRecipeAsync(recipeName, numIngredients, numSteps);
+             RecipeCollection.Instance.EnterRecipe(recipeName, numIngredients, numSteps);
 
            
 
@@ -168,5 +170,7 @@ namespace POE_Application_WPF
             Calories_TextBox.Text = string.Empty;
             Food_Group_TextBox.Text = string.Empty;
         }
+
+    
     }
 }
