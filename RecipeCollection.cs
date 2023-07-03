@@ -153,7 +153,12 @@ namespace POE_Application_WPF
                 MessageBox.Show("Please enter the recipe details on the Create Recipe panel and click Enter.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
- 
+        public void DeleteRecipe(Recipe recipe)
+        {
+            // Remove the recipe from your collection based on your implementation
+            // For example, if you have a List<Recipe>, you can use the Remove method:
+            recipes.Remove(recipe);
+        }
 
         public void DisplayRecipeList() // Displays a list of all recipes that the user added.
         {

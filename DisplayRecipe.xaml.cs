@@ -37,5 +37,18 @@ namespace POE_Application_WPF
             mw.Show();
             Close();
         }
+
+        private void DeleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            Button deleteButton = (Button)sender;
+            Recipe selectedRecipe = (Recipe)deleteButton.Tag;
+
+            // Call a method to delete the recipe from your collection
+            RecipeCollection.Instance.DeleteRecipe(selectedRecipe);
+
+            // Update the UI by refreshing the item source
+            RecipeItemsControl.ItemsSource = RecipeCollection.Instance.GetRecipes();
+        }
+
     }
 }
