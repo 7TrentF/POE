@@ -11,7 +11,7 @@ namespace POE_Application_WPF
 {
     public class RecipeCollection
     {
-        AddRecipeWindow arw = new AddRecipeWindow();
+        
         private static RecipeCollection instance; // Singleton instance of the RecipeCollection class
         private List<Recipe> recipes; // Private field to store the list of recipes
         private string filterIngredientName; // Field to store the ingredient name filter

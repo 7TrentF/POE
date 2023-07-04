@@ -3,48 +3,50 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        WindowState="Maximized"
         xmlns:local="clr-namespace:POE_Application_WPF"
         mc:Ignorable="d"
-        Title="RecipeList" Height="601" Width="1267" Background="#FF00F76E">
-    <Grid>
-        <Rectangle x:Name="TextBoxRectangle" HorizontalAlignment="Left" Height="38" Margin="308,124,0,0" Stroke="Black" VerticalAlignment="Top" Width="632" Fill="White" RadiusX="5.5" RadiusY="5.5"/>
+        Background="#FF2B2B2B"
+        Title="RecipeList" Height="628" Width="1291">
+    <Grid Margin="10,10,10,-6">
+        <Grid x:Name="MainGrid" Margin="85,104,141,80">
+            <Rectangle x:Name="TextBoxRectangle" HorizontalAlignment="Left" Height="38" Margin="64,96,0,0" Stroke="Black" VerticalAlignment="Top" Width="1173" Fill="White" RadiusX="5.5" RadiusY="5.5"/>
+            <Button x:Name="List_Button" Content="List all" HorizontalAlignment="Left" Margin="1085,10,0,0" VerticalAlignment="Top" Height="34" Width="150" Click="List_Button_Click" RenderTransformOrigin="0.714,1.689" Background="#FF00F726" Foreground="White" FontSize="18" FontWeight="Bold">
+                <Button.Effect>
+                    <DropShadowEffect/>
+                </Button.Effect>
+            </Button>
+            <Button x:Name="Back_Button" Content="Main Menu" HorizontalAlignment="Left" Margin="1085,-64,0,0" VerticalAlignment="Top" Height="40" Width="153" Click="Back_Button_Click" FontSize="18" Background="#FF00F726" Foreground="White" FontWeight="Bold">
+                <Button.Effect>
+                    <DropShadowEffect/>
+                </Button.Effect>
+            </Button>
 
+            <ListView x:Name="RecipeListView" Margin="64,131,53,10" Background="White" MouseDoubleClick="RecipeListView_MouseDoubleClick">
+                <ListView.Resources>
+                    <Style TargetType="GridViewColumnHeader">
+                        <Setter Property="FontSize" Value="16"/>
+                        <Setter Property="Margin" Value="8,0"/>
+                    </Style>
+                </ListView.Resources>
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Recipe No." Width="Auto" DisplayMemberBinding="{Binding Count}"/>
+                        <GridViewColumn Header="Recipe Name" Width="Auto" DisplayMemberBinding="{Binding RecipeName}"/>
+                        <GridViewColumn Header="Total Calories" Width="Auto" DisplayMemberBinding="{Binding Calories}"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <Button x:Name="SearchButton" Content="Search" HorizontalAlignment="Left" Margin="1142,96,0,0" VerticalAlignment="Top" Height="35" Width="94" FontSize="16" FontWeight="Bold" Click="SearchButton_Click" RenderTransformOrigin="0.463,0.418"/>
+            <TextBox x:Name="RecipeNameTextBox" HorizontalAlignment="Left" Margin="64,103,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="204" FontSize="16" Text="Enter Recipe to display" GotFocus="RecipeNameTextBox_GotFocus" BorderBrush="White" TextChanged="RecipeNameTextBox_TextChanged"/>
+        </Grid>
 
-
-        <Label x:Name="RecipeListLable" Content="Recipes Currently Added:" HorizontalAlignment="Left" Margin="24,61,0,0" VerticalAlignment="Top" Background="White" Foreground="#FF00F90F" FontSize="18" FontWeight="Bold" Width="236">
-            <Label.Effect>
-                <DropShadowEffect/>
-            </Label.Effect>
-        </Label>
-        <Button x:Name="List_Button" Content="List all" HorizontalAlignment="Left" Margin="1050,350,0,0" VerticalAlignment="Top" Height="34" Width="150" Click="List_Button_Click" RenderTransformOrigin="0.714,1.689" Background="#FF00F726" Foreground="White" FontSize="18" FontWeight="Bold">
-            <Button.Effect>
-                <DropShadowEffect/>
-            </Button.Effect>
-        </Button>
-        <Button x:Name="Back_Button" Content="Main Menu" HorizontalAlignment="Left" Margin="1050,424,0,0" VerticalAlignment="Top" Height="40" Width="150" Click="Back_Button_Click" FontSize="18" Background="#FF00F726" Foreground="White" FontWeight="Bold">
-            <Button.Effect>
-                <DropShadowEffect/>
-            </Button.Effect>
-        </Button>
-
-        <ListView x:Name="RecipeListView" Margin="308,167,327,121" Background="White" MouseDoubleClick="RecipeListView_MouseDoubleClick">    <ListView.Resources>
-                <Style TargetType="GridViewColumnHeader">
-                    <Setter Property="FontSize" Value="16"/>
-                    <Setter Property="Margin" Value="8,0"/>
-                </Style>
-            </ListView.Resources>
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Recipe No." Width="Auto" DisplayMemberBinding="{Binding Count}"/>
-                    <GridViewColumn Header="Recipe Name" Width="Auto" DisplayMemberBinding="{Binding RecipeName}"/>
-                    <GridViewColumn Header="Total Calories" Width="Auto" DisplayMemberBinding="{Binding Calories}"/>
-                </GridView>
-            </ListView.View>
-        </ListView>
-        <Button x:Name="SearchButton" Content="Search" HorizontalAlignment="Left" Margin="858,124,0,0" VerticalAlignment="Top" Height="38" Width="82" FontSize="16" FontWeight="Bold" Click="SearchButton_Click"/>
-        <TextBox x:Name="RecipeNameTextBox" HorizontalAlignment="Left" Margin="312,131,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="204" FontSize="16" Text="Enter Recipe to display" GotFocus="RecipeNameTextBox_GotFocus" BorderBrush="White" TextChanged="RecipeNameTextBox_TextChanged"/>
-
-
-
+        <Grid x:Name="BackgroundGrid" Margin="10,34,0,10">
+            <Label x:Name="RecipeListLable" Content="Recipes Currently Added:" HorizontalAlignment="Left" Margin="28,10,0,0" VerticalAlignment="Top" Foreground="#FF00F90F" FontSize="20" FontWeight="Bold" Width="280" Height="48">
+                <Label.Effect>
+                    <DropShadowEffect/>
+                </Label.Effect>
+            </Label>
+        </Grid>
     </Grid>
 </Window>

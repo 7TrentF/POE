@@ -194,10 +194,10 @@ namespace POE_Application_WPF
             // Call a method to delete the recipe from your collection (assumed to be implemented in RecipeCollection)
             RecipeCollection.Instance.DeleteRecipe(selectedRecipe);
 
-            // Update the UI by refreshing the item source of the RecipeItemsControl
+            // Update the item source of the RecipeItemsControl to display the updated recipe list
             RecipeItemsControl.ItemsSource = RecipeCollection.Instance.GetRecipes();
-
         }
+
 
         private void IngredientNameTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {

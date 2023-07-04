@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:POE_Application_WPF"
         mc:Ignorable="d"
         Title="DisplayRecipe" Height="615" Width="1123"
+         WindowState="Maximized"
         Background ="#FF2B2B2B"
         >
     <Grid x:Name="RecipeGrid" Background="#FF00F76E" Margin="26,68,27,20">
@@ -17,7 +18,7 @@
         </Grid.RowDefinitions>
 
         <ScrollViewer Grid.Row="1" Margin="10,0,33,10" VerticalScrollBarVisibility="Auto">
-            
+
             <ItemsControl x:Name="RecipeItemsControl">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
@@ -29,13 +30,13 @@
                     <DataTemplate>
                         <Border BorderThickness="1" BorderBrush="Black" Margin="10" Padding="20" Background="White">
                             <StackPanel Margin="0,0,0,0">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding RecipeName}" FontWeight="ExtraBold" FontSize="20" Margin="0,0,960,0" />
+                                    <Button Content="Filter" Click="FilterButton_Click" Width="100" Height="30" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="10,0,0,0" />
+                                    <Button Content="Delete" Click="DeleteButton_Click" Tag="{Binding}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="10,0,0,0" Width="100" Height="30" />
+                                    <Button Content="Reset" Click="ResetButton_Click" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="10,0,0,0" Width="100" Height="30" />
+                                </StackPanel>
 
-                                <Button Content="Filter" Click="FilterButton_Click" Width="100" Height="30" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="10,0,0,10" />
-                                <Grid>
-
-                                    <TextBlock Grid.Column="0" Text="{Binding RecipeName}" FontWeight="ExtraBold" FontSize="20" Margin="0,0,0,0" />
-                                    <Button Grid.Column="1" Content="Delete" Click="DeleteButton_Click" Tag="{Binding}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="10,0,0,0" Width="100" Height="30" />
-                                </Grid>
 
                                 <ItemsControl ItemsSource="{Binding Ingredients}">
                                     <ItemsControl.ItemTemplate>
@@ -64,17 +65,14 @@
                                                     <Run Text="Food Group: " FontWeight="Bold" />
                                                     <Run Text="{Binding FoodGroup}" />
                                                 </TextBlock>
-                                                <TextBlock>
-                                                    <Run Text="Total Calories: " FontWeight="Bold" />
-                                                    <Run Text="{Binding TotalCalories}" />
-                                                </TextBlock>
+
 
                                             </StackPanel>
                                         </DataTemplate>
                                     </ItemsControl.ItemTemplate>
                                 </ItemsControl>
                                 <TextBlock Text="Steps:" FontWeight="Bold" Margin="0,20,0,0"/>
-                                <ItemsControl ItemsSource="{Binding Steps}" Margin="35,0,0,0">
+                                <ItemsControl ItemsSource="{Binding Steps}" Margin="0,10,0,0">
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate>
                                             <StackPanel Orientation="Horizontal">
@@ -90,13 +88,9 @@
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
         </ScrollViewer>
-        <Grid Margin="0,-80,0,492" Grid.RowSpan="2">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="359*"/>
-                <ColumnDefinition Width="64*"/>
-                <ColumnDefinition Width="112*"/>
-            </Grid.ColumnDefinitions>
-            <Button x:Name="Main_menu_button" Content="Main Menu" Background="White" FontSize="18" Click="Main_menu_button_Click" Foreground="Black" Margin="5,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" Height="39" Width="158" Grid.Column="2" FontWeight="Bold">
+        <Grid Margin="0,-76,0,488" Grid.RowSpan="2">
+
+            <Button x:Name="Main_menu_button" Content="Main Menu" Background="White" FontSize="18" Click="Main_menu_button_Click" Foreground="Black" Margin="1280,16,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="39" Width="158" FontWeight="Bold">
                 <Button.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -106,7 +100,7 @@
                     </TransformGroup>
                 </Button.RenderTransform>
             </Button>
-            <TextBlock x:Name="Title" HorizontalAlignment="Left" Margin="26,19,0,0" TextWrapping="Wrap" Text="Recipes" VerticalAlignment="Top" Height="70" Width="283" Foreground="White" FontSize="36" FontWeight="Bold" FontFamily="Bahnschrift SemiBold">
+            <TextBlock x:Name="Title" HorizontalAlignment="Left" Margin="51,19,0,0" TextWrapping="Wrap" Text="Recipes" VerticalAlignment="Top" Height="70" Width="283" Foreground="White" FontSize="36" FontWeight="Bold" FontFamily="Bahnschrift SemiBold">
                 <TextBlock.Effect>
                     <DropShadowEffect/>
                 </TextBlock.Effect>

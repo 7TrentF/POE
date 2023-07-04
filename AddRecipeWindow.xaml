@@ -5,13 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:POE_Application_WPF"
         mc:Ignorable="d"
+         WindowState="Maximized"
         Title="AddRecipeWindow" Height="601" Width="1267" Background="#FF00F76E">
     <Grid x:Name="MainGrid" Margin="10,0,-10,-16">
         <Grid.RowDefinitions>
             <RowDefinition Height="29*"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Viewbox Stretch="Uniform" Margin="310,0,0,46" HorizontalAlignment="Left" Width="608" Height="489" VerticalAlignment="Bottom">
+        <Viewbox Stretch="Uniform" Margin="510,0,0,400" HorizontalAlignment="Left" Width="608" Height="489" VerticalAlignment="Bottom">
             <Image Height="1080" Source="/wallpaperflare.com_wallpaper.jpg" Stretch="Fill" Width="1920" RenderTransformOrigin="0.5,0.5">
                 <Image.RenderTransform>
                     <TransformGroup>
