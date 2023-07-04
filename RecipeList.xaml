@@ -42,7 +42,7 @@
         </Grid>
 
         <Grid x:Name="BackgroundGrid" Margin="10,34,0,10">
-            <Label x:Name="RecipeListLable" Content="Recipes Currently Added:" HorizontalAlignment="Left" Margin="28,10,0,0" VerticalAlignment="Top" Foreground="#FF00F90F" FontSize="20" FontWeight="Bold" Width="280" Height="48">
+            <Label x:Name="RecipeListLable" Content="Recipes Currently Added:" HorizontalAlignment="Left" Margin= "135,10,0,0" VerticalAlignment="Top" Foreground="#FF00F90F" FontSize="40" FontWeight="Bold" Width="535" Height="84">
                 <Label.Effect>
                     <DropShadowEffect/>
                 </Label.Effect>

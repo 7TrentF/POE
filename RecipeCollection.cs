@@ -17,6 +17,7 @@ namespace POE_Application_WPF
         private string filterIngredientName; // Field to store the ingredient name filter
         private string filterFoodGroup; // Field to store the food group filter
         private int? filterMaxCalories; // Field to store the maximum calories filter
+     
         // Instance ensures that only one instance of the RecipeCollection class exists throughout the application.
         //all classes and windows are able to access this instance and share the same data
         public static RecipeCollection Instance
@@ -45,7 +46,7 @@ namespace POE_Application_WPF
         {
             Recipe recipe = new Recipe(recipeName); // Create a new Recipe object with the entered name
             Delegate d = new Delegate(); // Create a new instance of the Delegate class (assuming this is a custom class)
-
+            int totalCalories = 0;
 
             MessageBox.Show("Enter the Details for the recipe", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
 
@@ -99,6 +100,14 @@ namespace POE_Application_WPF
                         // Prompt the user to enter the number of calories for the ingredient and convert it to int
                         calories = Convert.ToInt32(Interaction.InputBox($"Enter the number of calories for ingredient {i + 1}:"));
                         CalorieInformation();
+
+                        // Check if the total calories, including the current ingredient, exceed 300
+                        if (totalCalories + calories > 300)
+                        {
+                            // Call the NotifyUserExceededCalories method from the Delegate class
+                            d.NotifyUserExceededCalories(ingredientName);
+                        }
+
                         break; // Exit the loop if conversion succeeds
                     }
                     catch (FormatException)
@@ -107,6 +116,9 @@ namespace POE_Application_WPF
                         MessageBox.Show("Invalid input! Please enter a valid number of calories.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
+
+                // Add the calories to the total
+                totalCalories += calories;
 
                 int foodGroupNumber;
                 while (true)
@@ -144,11 +156,11 @@ namespace POE_Application_WPF
                 recipe.AddStep(step);
             }
 
-            int totalCalories = recipe.GetTotalCalories();
             if (totalCalories >= 300) // Check if the total calories exceed 300
             {
-                d.NotifyUserExceededCalories(recipe.RecipeName, totalCalories);
+                d.NotifyUserExceededCaloriesRecipe(recipe.RecipeName, totalCalories);
             }
+
 
             MessageBox.Show("\nRecipe added successfully!");
             recipe.PrintRecipe(); // Calls the PrintRecipe method from the Recipe class and prints the current recipe.
