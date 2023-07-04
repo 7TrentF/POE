@@ -31,7 +31,7 @@ To use the application, simply run the RecipeConsoleApp file by opening it throu
 You will be presented with the raw code and you will only need to run it through executing the code by clicking on 'start wihout debugging' next to 'start' at the top of the screen.
 You will be presented with a menu of options upon running the code.
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-GitHub link - 
+GitHub link - https://github.com/VCSTDN/prog6221---poe-7TrentF.git
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Changes made based on the Lecturers Feedback:
 Based on the Lectures feedback from Part 2, I have made updates to the method enterRecipe which makes use of the delegate.  I have revised the way the delegate is called. Now, when the calories for an ingredient are entered, and the total calories of all the ingredients for that recipe exceed 300 calories, the user will be notified. The delegate is also shown once 
