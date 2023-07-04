@@ -90,7 +90,13 @@ namespace POE_Application_WPF
                     break;
                 case "FoodGroup":
                     // Prompt the user to select the food group
-                    var selectedFoodGroup = Microsoft.VisualBasic.Interaction.InputBox("Select the Food Group:", "Filter by Food Group");
+                    var selectedFoodGroup = Microsoft.VisualBasic.Interaction.InputBox("Select the Food Group:\n" + "Options:\n" +
+                                                                               " Fruits\n" +
+                                                                               " Vegetables\n" +
+                                                                               " Grains\n" +
+                                                                               " Protein\n" +
+                                                                               " Dairy\n" +
+                                                                               " Fats and Oils", "Filter by Food Group");
                     // Apply the food group filter
                     ApplyFoodGroupFilter(selectedFoodGroup);
                     break;
@@ -183,20 +189,20 @@ namespace POE_Application_WPF
             Close();
         }
 
-        private void DeleteButton_Click(object sender, RoutedEventArgs e)
-        {
-            // Get the delete button that triggered the event
-            Button deleteButton = (Button)sender;
+       private void DeleteButton_Click(object sender, RoutedEventArgs e)
+{
+    // Get the delete button that triggered the event
+    Button deleteButton = (Button)sender;
 
-            // Get the corresponding Recipe object from the Tag property of the delete button
-            Recipe selectedRecipe = (Recipe)deleteButton.Tag;
+    // Get the corresponding Recipe object from the Tag property of the delete button
+    Recipe selectedRecipe = (Recipe)deleteButton.Tag;
 
-            // Call a method to delete the recipe from your collection (assumed to be implemented in RecipeCollection)
-            RecipeCollection.Instance.DeleteRecipe(selectedRecipe);
+    // Call a method to delete the recipe from your collection (assumed to be implemented in RecipeCollection)
+    RecipeCollection.Instance.DeleteRecipe(selectedRecipe);
 
-            // Update the item source of the RecipeItemsControl to display the updated recipe list
-            RecipeItemsControl.ItemsSource = RecipeCollection.Instance.GetRecipes();
-        }
+    // Update the item source of the RecipeItemsControl to display the updated recipe list
+    RecipeItemsControl.ItemsSource = RecipeCollection.Instance.GetRecipes();
+}
 
 
         private void IngredientNameTextBox_TextChanged(object sender, TextChangedEventArgs e)

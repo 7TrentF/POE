@@ -19,17 +19,17 @@
                     </Image.Effect>
                 </Image>
             </Viewbox>
-            <Button x:Name="AddButton" Content="Add" Margin="600,194,0,0" Foreground="White" Background="#FF00F726" Click="AddButton_Click_1" Height="44" VerticalAlignment="Top" HorizontalAlignment="Left" Width="157" FontSize="18">
+            <Button x:Name="AddButton" Content="Add" Margin="135,194,257,0" Foreground="White" Background="#FF00F726" Click="AddButton_Click_1"  Width="157"  Height="48" VerticalAlignment="Top" FontSize="18">
                 <Button.Effect>
                     <DropShadowEffect/>
                 </Button.Effect>
             </Button>
-            <Button x:Name="ListButton" Content="List" Margin="600,283,0,0" VerticalAlignment="Top" Height="48" Foreground="White" Background="#FF00F726" Click="ListButton_Click_1" HorizontalAlignment="Left" Width="157" FontSize="20">
+            <Button x:Name="ListButton" Content="List" Margin="135,283,257,0" VerticalAlignment="Top" Width="157"  Height="48" Foreground="White" Background="#FF00F726" Click="ListButton_Click_1" FontSize="20">
                 <Button.Effect>
                     <DropShadowEffect/>
                 </Button.Effect>
             </Button>
-            <Button x:Name="DisplayButton" Content="Display" Margin="600,387,50,0" VerticalAlignment="Top" Height="45" Foreground="White" Background="#FF00F726" Click="DisplayButton_Click_1" RenderTransformOrigin="0.456,-0.271" HorizontalAlignment="Left" Width="157" FontSize="20">
+            <Button x:Name="DisplayButton" Content="Display" Margin="135,387,257,-10" VerticalAlignment="Top" Width="157"  Height="48" Foreground="White" Background="#FF00F726" Click="DisplayButton_Click_1" RenderTransformOrigin="0.456,-0.271" FontSize="20">
                 <Button.Effect>
                     <DropShadowEffect/>
                 </Button.Effect>

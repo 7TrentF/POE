@@ -22,7 +22,7 @@ namespace POE_Application_WPF
         public void NotifyUserExceededCalories(string ingredientName)
         {
             MessageBox.Show($"WARNING!!!:\n" +
-                            $"The calories for the ingridient: '{ingredientName}' (when added to the recipe total) exceeds 300 calories.\n" +
+                            $"The calories for the ingredient: '{ingredientName}' (when added to the recipe total) exceeds 300 calories.\n" +
                             $"Eating more than 300 to 400 calories in a meal will likely cause a surplus of energy", "Calorie Limit Exceeded", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
         /* 
