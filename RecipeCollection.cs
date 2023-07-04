@@ -183,7 +183,7 @@ namespace POE_Application_WPF
             if (enterRecipe == MessageBoxResult.Yes)
             {
                 // Prompt the user to enter the recipe details on the Create Recipe panel and click Enter
-                MessageBox.Show("Please enter the recipe details on the Create Recipe panel and click Enter.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Please enter the recipe details on the Add Recipe panel and click Enter.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
         public void CalorieInformation()
