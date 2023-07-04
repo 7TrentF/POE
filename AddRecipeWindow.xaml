@@ -11,23 +11,31 @@
             <RowDefinition Height="29*"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Viewbox Stretch="Uniform" Margin="224,40,0,166" HorizontalAlignment="Left" Width="608">
-            <Image Height="1080" Source="/wallpaperflare.com_wallpaper.jpg" Stretch="Fill" Width="1920">
+        <Viewbox Stretch="Uniform" Margin="310,46,0,46" HorizontalAlignment="Left" Width="608">
+            <Image Height="1080" Source="/wallpaperflare.com_wallpaper.jpg" Stretch="Fill" Width="1920" RenderTransformOrigin="0.5,0.5">
+                <Image.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform AngleY="0.141"/>
+                        <RotateTransform/>
+                        <TranslateTransform Y="2.366"/>
+                    </TransformGroup>
+                </Image.RenderTransform>
                 <Image.Effect>
                     <DropShadowEffect/>
                 </Image.Effect>
             </Image>
 
         </Viewbox>
-        <Grid Margin="28,16,529,16" Grid.RowSpan="2">
-            <Rectangle x:Name="Recipe_Enter_Rectangle" HorizontalAlignment="Left" Stroke="Black" Width="286" Fill="White" RadiusX="22.705" RadiusY="22.705" VerticalAlignment="Top" Height="397" Margin="0,10,0,0"/>
+        <Grid Margin="0,16,569,10" HorizontalAlignment="Right" Width="670">
+            <Rectangle x:Name="Recipe_Enter_Rectangle" HorizontalAlignment="Left" Stroke="Black" Width="335" Fill="White" RadiusX="22.705" RadiusY="22.705" VerticalAlignment="Top" Height="469" Margin="0,10,0,0"/>
             <TextBlock x:Name="EnterTextBlock" Margin="45,29,0,282" TextWrapping="Wrap" RenderTransformOrigin="0.385,0.949" FontSize="20" FontWeight="Bold" HorizontalAlignment="Left" Width="173"><Run Language="en-za" Text="Create Recipe"/></TextBlock>
-            <TextBox x:Name="Recipe_Name_TextBox" HorizontalAlignment="Left" Margin="45,124,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="185" TextChanged="RecipeNameTextBox_TextChanged" OpacityMask="White" BorderBrush="Black" Height="24" BorderThickness="2,1,2,1"/>
+            <TextBox x:Name="Recipe_Name_TextBox" HorizontalAlignment="Left" Margin="45,124,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="272" TextChanged="RecipeNameTextBox_TextChanged" OpacityMask="White" BorderBrush="Black" Height="27" BorderThickness="2,1,2,1"/>
             <TextBlock x:Name="RecipeNameTextBlock" HorizontalAlignment="Left" Margin="45,103,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="24" Width="70" RenderTransformOrigin="0.385,0.949" FontSize="14" Text="Recipe name:" FontWeight="Bold"/>
             <TextBlock x:Name="Number_of_IngredientsTextBlock" HorizontalAlignment="Left" Margin="45,173,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14" Height="27" Width="272" FontWeight="Bold"><Run Text="Number of Ingredients"/><Run Language="en-za" Text=":"/></TextBlock>
             <TextBlock x:Name="NumberOfStepsTextBlock" HorizontalAlignment="Left" Margin="45,260,0,0" TextWrapping="Wrap" VerticalAlignment="Top" RenderTransformOrigin="0.499,-0.617" FontSize="14" Height="27" Width="146" FontWeight="Bold"><Run Text="Number of steps"/><Run Language="en-za" Text=":"/></TextBlock>
-            <TextBox x:Name="Num_Of_Ingredients_TextBox" HorizontalAlignment="Left" Margin="45,205,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="185" TextChanged="Num_Of_Ingredients_TextBox_TextChanged" Height="28" BorderBrush="Black"/>
-            <TextBox x:Name="Number_Of_Steps_TextBox" HorizontalAlignment="Left" Margin="45,292,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="173" Height="28" TextChanged="Number_Of_Steps_TextBox_TextChanged" BorderBrush="Black"/>
+            <TextBox x:Name="Num_Of_Ingredients_TextBox" HorizontalAlignment="Left" Margin="45,205,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="272" TextChanged="Num_Of_Ingredients_TextBox_TextChanged" Height="25" BorderBrush="Black"/>
+            <TextBox x:Name="Number_Of_Steps_TextBox" HorizontalAlignment="Left" Margin="45,292,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="272" Height="22" TextChanged="Number_Of_Steps_TextBox_TextChanged" BorderBrush="Black"/>
 
             <Button x:Name="Print_Button" Content="Enter" HorizontalAlignment="Left" Margin="45,343,0,0" VerticalAlignment="Top" FontSize="14" Click="Print_Button_Click" Height="23" Width="88" Foreground="White" Background="#FF00F708">
                 <Button.Effect>
@@ -37,7 +45,7 @@
 
 
 
-            <Button x:Name="HideGridButton" Content="Clear" HorizontalAlignment="Left" Margin="181,346,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.888,1.932" FontSize="14" Background="#FF00F708" Foreground="White" Click="HideGridButton_Click" Height="20" Width="77">
+            <Button x:Name="HideGridButton" Content="Clear" Margin="181,343,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.888,1.932" FontSize="14" Background="#FF00F708" Foreground="White" Click="HideGridButton_Click" Height="23" HorizontalAlignment="Left" Width="94">
                 <Button.Effect>
                     <DropShadowEffect/>
                 </Button.Effect>

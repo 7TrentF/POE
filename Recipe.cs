@@ -192,17 +192,11 @@ namespace POE_Application_WPF
                 Ingredients.Clear(); // Clear the Ingredients list, removing all elements
                 Steps.Clear(); // Clear the Steps list, removing all elements
                 OriginalQuantities.Clear(); // Clear the OriginalQuantities list, removing all element
-
-                Console.WriteLine("\n The recipe has been cleared");
+               
+                MessageBox.Show("The recipe has been cleared");
                 PrintRecipe();
             }
-            else if (result == MessageBoxResult.No)
-            {
-                // Handle the case when the user's response is "n"
-                MessageBox.Show("The recipe will not be cleared.", "Recipe Not Cleared", MessageBoxButton.OK, MessageBoxImage.Information);
-                // Add any additional code specific to this case if needed
-                PrintRecipe();
-            }
+           
             else
             {
                 // Handle the case when the user's response is neither "y" nor "n"

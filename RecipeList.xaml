@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="RecipeList" Height="601" Width="1267" Background="#FF00F76E">
     <Grid>
-        <Rectangle x:Name="TextBoxRectangle" HorizontalAlignment="Left" Height="38" Margin="308,117,0,0" Stroke="Black" VerticalAlignment="Top" Width="632" Fill="#FFEDDFDF" RadiusX="5.5" RadiusY="5.5"/>
+        <Rectangle x:Name="TextBoxRectangle" HorizontalAlignment="Left" Height="38" Margin="308,124,0,0" Stroke="Black" VerticalAlignment="Top" Width="632" Fill="White" RadiusX="5.5" RadiusY="5.5"/>
 
 
 
@@ -16,7 +16,7 @@
                 <DropShadowEffect/>
             </Label.Effect>
         </Label>
-        <Button x:Name="List_Button" Content="List" HorizontalAlignment="Left" Margin="832,117,0,0" VerticalAlignment="Top" Height="34" Width="108" Click="List_Button_Click" RenderTransformOrigin="0.714,1.689" Background="#FF00F726" Foreground="White" FontSize="18" FontWeight="Bold">
+        <Button x:Name="List_Button" Content="List all" HorizontalAlignment="Left" Margin="1050,350,0,0" VerticalAlignment="Top" Height="34" Width="150" Click="List_Button_Click" RenderTransformOrigin="0.714,1.689" Background="#FF00F726" Foreground="White" FontSize="18" FontWeight="Bold">
             <Button.Effect>
                 <DropShadowEffect/>
             </Button.Effect>
@@ -42,9 +42,8 @@
                 </GridView>
             </ListView.View>
         </ListView>
-
-
-        <TextBlock x:Name="Click_List_TextBlock" HorizontalAlignment="Left" Margin="308,122,0,0" TextWrapping="Wrap" Text="Click the List button to display the recipes added " VerticalAlignment="Top" FontSize="18" FontWeight="Bold" Foreground="#FF00F90F"/>
+        <Button x:Name="SearchButton" Content="Search" HorizontalAlignment="Left" Margin="858,124,0,0" VerticalAlignment="Top" Height="38" Width="82" FontSize="16" FontWeight="Bold" Click="SearchButton_Click"/>
+        <TextBox x:Name="RecipeNameTextBox" HorizontalAlignment="Left" Margin="312,131,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="204" FontSize="16" Text="Enter Recipe to display" GotFocus="RecipeNameTextBox_GotFocus" BorderBrush="White"/>
 
 
 

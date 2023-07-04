@@ -47,7 +47,26 @@ namespace POE_Application_WPF
             for (int i = 0; i < numIngredients; i++)
             {
                 // Prompt the user to enter the name of the ingredient
-                string ingredientName = Interaction.InputBox($"Enter the name of ingredient {i + 1}:");
+
+
+                string ingredientName;
+                while (true)
+                {
+                    // Prompt the user to enter the ingredient name
+                    ingredientName = Interaction.InputBox($"Enter the name of ingredient {i + 1}:");
+
+                    // Check if the ingredient name is empty
+                    if (string.IsNullOrWhiteSpace(ingredientName))
+                    {
+                        // Display error message and prompt the user to re-enter the value
+                        MessageBox.Show("Ingredient name cannot be empty. Please enter a valid ingredient name.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                    else
+                    {
+                        // Exit the loop if a valid ingredient name is entered
+                        break;
+                    }
+                }
 
                 double quantity;
                 while (true)
@@ -128,11 +147,10 @@ namespace POE_Application_WPF
 
             MessageBox.Show("\nRecipe added successfully!");
             recipe.PrintRecipe(); // Calls the PrintRecipe method from the Recipe class and prints the current recipe.
-            recipe.ScaleRecipe();
+            recipe.ScaleRecipe();  // Calls the ScaleRecipe method from the Recipe class and scales the recipe.
             recipe.ResetQuantities();// Method that resets the quantities of all ingredients in the recipe to their original values.
             recipe.ClearRecipe();    // Method that clears the  current recipe. 
             recipes.Add(recipe); // Add the current recipe to the list of recipes
-
 
             StringBuilder recipeNames = new StringBuilder("Recipe added:\n");
             foreach (Recipe r in recipes)
@@ -142,8 +160,6 @@ namespace POE_Application_WPF
 
             // Display a message box with the names of all the added recipes
             MessageBox.Show(recipeNames.ToString(), "Added Recipes", MessageBoxButton.OK, MessageBoxImage.Information);
-
-
 
             MessageBoxResult enterRecipe = MessageBox.Show("Do you want to enter another recipe?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
 

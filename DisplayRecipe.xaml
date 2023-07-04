@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:POE_Application_WPF"
         mc:Ignorable="d"
         Title="DisplayRecipe" Height="450" Width="800">
-    <Grid x:Name="BackgorundGrid" Background="#FF00F76E" Margin="43,43,52,57">
+    <Grid x:Name="RecipeGrid" Background="#FF00F76E" Margin="43,43,42,67">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
@@ -16,7 +16,7 @@
         <TextBlock Grid.Row="0" FontSize="28" Text="Recipes" Margin="35,19,0,0" />
 
         <ScrollViewer Grid.Row="1" Margin="0 20 0 0" VerticalScrollBarVisibility="Auto">
-            <ItemsControl x:Name="RecipeItemsControl">
+            <ItemsControl x:Name="RecipeItemsControl" Height="258" Width="695">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Border BorderThickness="1" BorderBrush="Black" Margin="10" Padding="20" Background="White">
@@ -63,18 +63,20 @@
                 </ItemsControl.ItemsPanel>
             </ItemsControl>
         </ScrollViewer>
-        <Button x:Name="Main_menu_button" Content="Main Menu" Background="#FF00F726" FontSize="14" Click="Main_menu_button_Click" Foreground="White" Margin="605,241,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="1">
-            <Button.Effect>
-                <DropShadowEffect/>
-            </Button.Effect>
-            <Button.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform AngleX="-0.069"/>
-                    <RotateTransform Angle="0.095"/>
-                    <TranslateTransform X="-0.13" Y="-0.098"/>
-                </TransformGroup>
-            </Button.RenderTransform>
-        </Button>
+        <Grid Grid.Row="1" Margin="543,268,-41,-66">
+            <Button x:Name="Main_menu_button" Content="Main Menu" Background="#FF00F726" FontSize="14" Click="Main_menu_button_Click" Foreground="White" Margin="39,16,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="23" Width="113">
+                <Button.Effect>
+                    <DropShadowEffect/>
+                </Button.Effect>
+                <Button.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform AngleX="-0.069"/>
+                        <RotateTransform Angle="0.095"/>
+                        <TranslateTransform X="-0.13" Y="-0.098"/>
+                    </TransformGroup>
+                </Button.RenderTransform>
+            </Button>
+        </Grid>
     </Grid>
 </Window>

@@ -110,5 +110,34 @@ namespace POE_Application_WPF
             }
         }
 
+        private void SearchButton_Click(object sender, RoutedEventArgs e)
+        {
+            string searchQuery = RecipeNameTextBox.Text;
+
+            // Search for the recipe by name
+            Recipe foundRecipe = RecipeCollection.Instance.GetRecipes().FirstOrDefault(r => r.RecipeName.Equals(searchQuery, StringComparison.OrdinalIgnoreCase));
+
+            if (foundRecipe != null)
+            {
+                // Clear the ListView
+                RecipeListView.Items.Clear();
+
+                // Add the found recipe to the ListView
+                RecipeListView.Items.Add(foundRecipe);
+
+                // Set the selected recipe as the current item in the ListView
+                RecipeListView.SelectedItem = foundRecipe;
+            }
+            else
+            {
+                MessageBox.Show("Recipe not found.", "Recipe Not Found", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+        }
+
+        private void RecipeNameTextBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            RecipeNameTextBox.Text = string.Empty;
+        }
+
     }
 }
