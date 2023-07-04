@@ -11,7 +11,7 @@
             <RowDefinition Height="29*"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Viewbox Stretch="Uniform" Margin="310,46,0,46" HorizontalAlignment="Left" Width="608">
+        <Viewbox Stretch="Uniform" Margin="310,0,0,46" HorizontalAlignment="Left" Width="608" Height="489" VerticalAlignment="Bottom">
             <Image Height="1080" Source="/wallpaperflare.com_wallpaper.jpg" Stretch="Fill" Width="1920" RenderTransformOrigin="0.5,0.5">
                 <Image.RenderTransform>
                     <TransformGroup>

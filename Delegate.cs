@@ -18,6 +18,8 @@ namespace POE_Application_WPF
                             $"Eating more than 300 to 400 calories in a meal will likely cause a surplus of energy.\n" +
                             $"\nTotal calories: {totalCalories}", "Calorie Limit Exceeded", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
+
+       
         /* 
          *  /*  Author: Doyle, B. (2016) 
             title of the book: C♯ Programming: From problem analysis to program design.Boston, MA: Cengage Learning. pg 686-690
@@ -27,4 +29,4 @@ namespace POE_Application_WPF
             Class example: DelegateExample
         */
     }
-}
+    }

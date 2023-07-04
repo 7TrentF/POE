@@ -29,27 +29,42 @@ namespace POE_Application_WPF
 
         private void AddButton_Click_1(object sender, RoutedEventArgs e)
         {
+            // Create an instance of the AddRecipeWindow
             AddRecipeWindow arw = new AddRecipeWindow();
+
+            // Show the AddRecipeWindow
             arw.Show();
+
+            // Close the current window
             Close();
         }
 
         private void ListButton_Click_1(object sender, RoutedEventArgs e)
-        {
+        { // Create an instance of the RecipeList window
             RecipeList rl = new RecipeList();
+
+            // Show the RecipeList window
             rl.Show();
+
+            // Close the current window
             Close();
         }
 
         private void DisplayButton_Click_1(object sender, RoutedEventArgs e)
         {
+            // Create an instance of the DisplayRecipe window
             DisplayRecipe dr = new DisplayRecipe();
+
+            // Show the DisplayRecipe window
             dr.Show();
+
+            // Close the current window
             Close();
         }
 
         private void ExitButton_Click(object sender, RoutedEventArgs e)
         {
+            // Close the current window, effectively exiting the application
             Close();
         }
     }

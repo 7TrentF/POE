@@ -27,8 +27,7 @@
             </Button.Effect>
         </Button>
 
-        <ListView x:Name="RecipeListView" Margin="308,167,327,121" Background="White" MouseDoubleClick="RecipeListView_MouseDoubleClick" SelectionChanged="RecipeListView_SelectionChanged">
-            <ListView.Resources>
+        <ListView x:Name="RecipeListView" Margin="308,167,327,121" Background="White" MouseDoubleClick="RecipeListView_MouseDoubleClick">    <ListView.Resources>
                 <Style TargetType="GridViewColumnHeader">
                     <Setter Property="FontSize" Value="16"/>
                     <Setter Property="Margin" Value="8,0"/>
@@ -43,7 +42,7 @@
             </ListView.View>
         </ListView>
         <Button x:Name="SearchButton" Content="Search" HorizontalAlignment="Left" Margin="858,124,0,0" VerticalAlignment="Top" Height="38" Width="82" FontSize="16" FontWeight="Bold" Click="SearchButton_Click"/>
-        <TextBox x:Name="RecipeNameTextBox" HorizontalAlignment="Left" Margin="312,131,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="204" FontSize="16" Text="Enter Recipe to display" GotFocus="RecipeNameTextBox_GotFocus" BorderBrush="White"/>
+        <TextBox x:Name="RecipeNameTextBox" HorizontalAlignment="Left" Margin="312,131,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="204" FontSize="16" Text="Enter Recipe to display" GotFocus="RecipeNameTextBox_GotFocus" BorderBrush="White" TextChanged="RecipeNameTextBox_TextChanged"/>
 
 
 

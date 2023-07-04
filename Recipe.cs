@@ -6,6 +6,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media;
 
 namespace POE_Application_WPF
 {
@@ -49,11 +50,14 @@ namespace POE_Application_WPF
         public void ScaleRecipe()
         {
             MessageBoxResult result = MessageBox.Show("Do you want to scale the recipe?", "Scale Recipe", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            // Check if the user clicked "Yes" in the message box
             if (result == MessageBoxResult.Yes)
             {
                 bool validInput = false;
                 double factor = 0;
 
+                // Keep prompting for input until a valid scaling factor is entered
                 while (!validInput)
                 {
                     string input = Interaction.InputBox("Enter the scaling factor:\n0.5 (Half)\n2 (Double)\n3 (Triple):", "Scaling Factor");
@@ -62,9 +66,10 @@ namespace POE_Application_WPF
                     {
                         factor = Convert.ToDouble(input);
 
+                        // Check if the entered factor is one of the valid values (0.5, 2, 3)
                         if (factor == 0.5 || factor == 2 || factor == 3)
                         {
-                            validInput = true;
+                            validInput = true; // Mark the input as valid to exit the loop
                         }
                         else
                         {
@@ -111,22 +116,28 @@ namespace POE_Application_WPF
 
         public void PrintRecipe()
         {
+            // Create a StringBuilder to construct the recipe text
             StringBuilder recipeText = new StringBuilder();
 
+            // Add separator and recipe name to the recipe text
             recipeText.AppendLine("---------------------------------------");
             recipeText.AppendLine($"Recipe Name: {RecipeName}");
             recipeText.AppendLine("---------------------------------------");
 
+            // Add section heading for ingredients
             recipeText.AppendLine("\nIngredients:");
 
+            // Iterate over the ingredients and add their details to the recipe text
             for (int i = 0; i < Ingredients.Count; i++)
             {
                 Ingredient ingredient = Ingredients[i];
                 recipeText.AppendLine($"- {ingredient.Quantity} {ingredient.Unit} {ingredient.Name}");
             }
 
+            // Add section heading for recipe information
             recipeText.AppendLine("\nRecipe Information:");
 
+            // Iterate over the ingredients again and add their individual information to the recipe text
             for (int i = 0; i < Ingredients.Count; i++)
             {
                 Ingredient ingredient = Ingredients[i];
@@ -136,18 +147,23 @@ namespace POE_Application_WPF
                 recipeText.AppendLine();
             }
 
+            // Add section heading for steps
             recipeText.AppendLine("Steps:");
 
+            // Add the steps of the recipe to the recipe text
             for (int i = 0; i < Steps.Count; i++)
             {
                 string step = Steps[i];
                 recipeText.AppendLine($"{i + 1}. {step}");
             }
 
+            // Add final separator to the recipe text
             recipeText.AppendLine("---------------------------------------");
 
+            // Display the recipe text in a message box with the title "Recipe Details"
             MessageBox.Show(recipeText.ToString(), "Recipe Details");
         }
+
 
         public void ResetQuantities()
         {
@@ -169,22 +185,21 @@ namespace POE_Application_WPF
             {
                 // Handle the case when the user's response is "n"
                 MessageBox.Show("The recipe quantities will not be reset.", "Quantities Not Reset", MessageBoxButton.OK, MessageBoxImage.Information);
-                // Add any additional code specific to this case if needed
+                
             }
             else
             {
                 // Handle the case when the user's response is neither "y" nor "n"
                 MessageBox.Show("Invalid response. The recipe quantities will not be reset.", "Invalid Response", MessageBoxButton.OK, MessageBoxImage.Warning);
-                // Add any additional code specific to this case if needed
+                
             }
         }
 
         public void ClearRecipe() // Clear the recipe by resetting its properties and clearing the lists
         {
             MessageBoxResult result = MessageBox.Show("Do you want to  clear the recipe? (y/n)", "Clear recipe", MessageBoxButton.YesNo, MessageBoxImage.Question);
-           
 
-             if (result == MessageBoxResult.Yes)
+            if (result == MessageBoxResult.Yes)
             {
                 string answer = Interaction.InputBox("Do you want to  clear the recipe? (y/n)").ToLower();// Asks the user if they want to reset the recipe to its original quantities and reads their response.
 
@@ -192,28 +207,34 @@ namespace POE_Application_WPF
                 Ingredients.Clear(); // Clear the Ingredients list, removing all elements
                 Steps.Clear(); // Clear the Steps list, removing all elements
                 OriginalQuantities.Clear(); // Clear the OriginalQuantities list, removing all element
-               
+
                 MessageBox.Show("The recipe has been cleared");
                 PrintRecipe();
             }
-           
+            else if (result == MessageBoxResult.No)
+            {
+                MessageBox.Show("The recipe will not be cleared.", "Recipe Not cleared", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
             else
             {
                 // Handle the case when the user's response is neither "y" nor "n"
                 MessageBox.Show("Invalid response. The recipe will not be cleared.", "Invalid Response", MessageBoxButton.OK, MessageBoxImage.Warning);
                 PrintRecipe();
             }
-
         }
 
         public void DisplayRecipe()
         {
+            // Create a StringBuilder to construct the recipe information string
             StringBuilder recipeInfo = new StringBuilder();
+
+            // Add separator and recipe name to the recipe information
             recipeInfo.AppendLine("---------------------------------------");
             recipeInfo.AppendLine($"Recipe Name: {RecipeName}");
             recipeInfo.AppendLine("---------------------------------------");
             recipeInfo.AppendLine("Recipe Information:\n");
 
+            // Iterate over the ingredients and add their details to the recipe information
             for (int i = 0; i < Ingredients.Count; i++)
             {
                 Ingredient ingredient = Ingredients[i];
@@ -222,7 +243,10 @@ namespace POE_Application_WPF
                 recipeInfo.AppendLine($"Food Group: {ingredient.FoodGroup}\n");
             }
 
+            // Add the total calories of the recipe to the recipe information
             recipeInfo.AppendLine($"Total Calories: {GetTotalCalories()}\n");
+
+            // Add separator and additional information to the recipe information
             recipeInfo.AppendLine("---------------------------------------");
             recipeInfo.AppendLine("As a guide: The average man needs 2,500kcal a day,");
             recipeInfo.AppendLine("Whereas the average woman needs 2,000kcal a day.");
@@ -231,16 +255,20 @@ namespace POE_Application_WPF
             recipeInfo.AppendLine("---------------------------------------");
             recipeInfo.AppendLine("\nSteps:");
 
+            // Add the steps of the recipe to the recipe information
             for (int i = 0; i < Steps.Count; i++)
             {
                 recipeInfo.AppendLine($"{i + 1}. {Steps[i]}");
             }
 
+            // Add final separator to the recipe information
             recipeInfo.AppendLine("---------------------------------------");
 
+            // Display the recipe information in a message box
             MessageBox.Show(recipeInfo.ToString(), "Recipe Information", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
+       
 
         public int GetTotalCalories() // Calculates and returns the total calories of all the ingredients in the recipe
         {
@@ -254,6 +282,7 @@ namespace POE_Application_WPF
 
         public string GetFoodGroupName(int foodGroupNumber)
         {
+            // Define a dictionary that maps food group numbers to food group names
             Dictionary<int, string> foodGroups = new Dictionary<int, string>()
     {
         { 1, "Fruits" },
@@ -264,8 +293,10 @@ namespace POE_Application_WPF
         { 6, "Fats and Oils" }
     };
 
+            // Try to get the food group name associated with the given food group number
             if (foodGroups.TryGetValue(foodGroupNumber, out string foodGroupName))
             {
+                // If the food group number is valid, return the corresponding food group name
                 return foodGroupName;
             }
 
@@ -273,19 +304,12 @@ namespace POE_Application_WPF
             return string.Empty;
         }
 
-        public void recipeMessage()
+        public void CalorieInformation()
         {
-            MessageBoxResult result = MessageBox.Show("Do you want to enter another recipe?", "Recipe Entry", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            MessageBox.Show(
+                  "Calories are a measurement of the amount of energy that is contained in foods or drinks", "Calorie Information", MessageBoxButton.OK, MessageBoxImage.Information);
 
-            if (result == MessageBoxResult.Yes)
-            {
 
-            }
-            else
-            {
-                // User does not want to enter another recipe
-                // Add your code here to handle the user's choice
-            }
         }
 
 

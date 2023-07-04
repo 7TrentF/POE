@@ -9,12 +9,16 @@ using System.Windows.Controls;
 
 namespace POE_Application_WPF
 {
-      public class RecipeCollection
+    public class RecipeCollection
     {
         AddRecipeWindow arw = new AddRecipeWindow();
         private static RecipeCollection instance; // Singleton instance of the RecipeCollection class
         private List<Recipe> recipes; // Private field to store the list of recipes
-
+        private string filterIngredientName; // Field to store the ingredient name filter
+        private string filterFoodGroup; // Field to store the food group filter
+        private int? filterMaxCalories; // Field to store the maximum calories filter
+        // Instance ensures that only one instance of the RecipeCollection class exists throughout the application.
+        //all classes and windows are able to access this instance and share the same data
         public static RecipeCollection Instance
         {
             get
@@ -42,12 +46,12 @@ namespace POE_Application_WPF
             Recipe recipe = new Recipe(recipeName); // Create a new Recipe object with the entered name
             Delegate d = new Delegate(); // Create a new instance of the Delegate class (assuming this is a custom class)
 
+
             MessageBox.Show("Enter the Details for the recipe", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
 
             for (int i = 0; i < numIngredients; i++)
             {
                 // Prompt the user to enter the name of the ingredient
-
 
                 string ingredientName;
                 while (true)
@@ -94,6 +98,7 @@ namespace POE_Application_WPF
                     {
                         // Prompt the user to enter the number of calories for the ingredient and convert it to int
                         calories = Convert.ToInt32(Interaction.InputBox($"Enter the number of calories for ingredient {i + 1}:"));
+                        CalorieInformation();
                         break; // Exit the loop if conversion succeeds
                     }
                     catch (FormatException)
@@ -169,6 +174,15 @@ namespace POE_Application_WPF
                 MessageBox.Show("Please enter the recipe details on the Create Recipe panel and click Enter.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
+        public void CalorieInformation()
+        {
+            MessageBox.Show("As a guide:\nThe average man needs 2,500kcal a day,\n" +
+                         "Whereas the average woman needs 2,000kcal a day.\n" +
+                         "This could be different based on your:\n" +
+                         "- Age\n- Weight\n- Height\n- How much exercise you do.",
+                         "Calorie Information", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
         public void DeleteRecipe(Recipe recipe)
         {
             // Remove the recipe from your collection based on your implementation
@@ -220,20 +234,154 @@ namespace POE_Application_WPF
             }
 
             StringBuilder recipeDetails = new StringBuilder();
-            recipeDetails.AppendLine($"Recipe Name: {recipe.RecipeName}");
-            recipeDetails.AppendLine("Ingredients:");
+            recipeDetails.AppendLine($"Recipe Name: {recipe.RecipeName}"); // Append the recipe name to the string
+            recipeDetails.AppendLine("Ingredients:"); // Append a section header for ingredients
             foreach (var ingredient in recipe.Ingredients)
             {
-                recipeDetails.AppendLine($"- {ingredient.Name}: {ingredient.Quantity} {ingredient.Unit}");
+                recipeDetails.AppendLine($"- {ingredient.Name}: {ingredient.Quantity} {ingredient.Unit}"); // Append each ingredient with its name, quantity, and unit
             }
-            recipeDetails.AppendLine("Steps:");
+            recipeDetails.AppendLine("Steps:"); // Append a section header for steps
             for (int i = 0; i < recipe.Steps.Count; i++)
             {
-                recipeDetails.AppendLine($"{i + 1}. {recipe.Steps[i]}");
+                recipeDetails.AppendLine($"{i + 1}. {recipe.Steps[i]}"); // Append each step with its number
+            }
+            MessageBox.Show(recipeDetails.ToString(), "Recipe Details", MessageBoxButton.OK, MessageBoxImage.Information); // Display the recipe details in a message box
+        }
+
+        private List<Recipe> filteredRecipes; // Private field to store the filtered recipes
+
+        public List<Recipe> GetFilteredRecipes()
+        {
+            if (filteredRecipes == null)
+            {
+                // If no filters applied, return all recipes
+                return recipes;
+            }
+            else
+            {
+                // Return the filtered recipes
+                return filteredRecipes;
+            }
+        }
+
+
+        // Method to reset the filters
+        public void ResetFilters()
+        {
+            filteredRecipes = null; // Reset the filtered recipes
+        }
+
+        // Method to filter the recipes based on the filter criteria
+        public List<Recipe> FilterRecipes()
+        {
+            List<Recipe> filteredRecipes = new List<Recipe>();
+
+            foreach (Recipe recipe in recipes)
+            {
+                bool meetsFilterCriteria = true;
+
+                // Apply ingredient name filter
+                if (!string.IsNullOrEmpty(filterIngredientName))
+                {
+                    if (!recipe.Ingredients.Any(ingredient => ingredient.Name.ToLowerInvariant().Contains(filterIngredientName.ToLowerInvariant())))
+                    {
+                        meetsFilterCriteria = false;
+                    }
+                }
+
+                // Apply food group filter
+                if (!string.IsNullOrEmpty(filterFoodGroup))
+                {
+                    if (!recipe.Ingredients.Any(ingredient => ingredient.FoodGroup.Equals(filterFoodGroup, StringComparison.OrdinalIgnoreCase)))
+                    {
+                        meetsFilterCriteria = false;
+                    }
+                }
+
+                // Apply maximum calories filter
+                if (filterMaxCalories.HasValue)
+                {
+                    if (recipe.GetTotalCalories() > filterMaxCalories.Value)
+                    {
+                        meetsFilterCriteria = false;
+                    }
+                }
+
+                if (meetsFilterCriteria)
+                {
+                    filteredRecipes.Add(recipe);
+                }
             }
 
-            MessageBox.Show(recipeDetails.ToString(), "Recipe Details", MessageBoxButton.OK, MessageBoxImage.Information);
+            return filteredRecipes;
         }
+
+        public void FilterRecipesByIngredientName(string ingredientName)
+        {
+            // Create a new list to store the filtered recipes
+            filteredRecipes = new List<Recipe>();
+
+            // Iterate over each recipe in the collection
+            foreach (Recipe recipe in recipes)
+            {
+                // Check if the recipe contains the specified ingredient name
+                if (recipe.Ingredients.Any(ingredient => ingredient.Name.Equals(ingredientName, StringComparison.OrdinalIgnoreCase)))
+                {
+                    filteredRecipes.Add(recipe); // Add the recipe to the filtered list
+                }
+            }
+        }
+
+        public void FilterRecipesByFoodGroup(string foodGroup)
+        {
+            // Create a new list to store the filtered recipes
+            filteredRecipes = new List<Recipe>();
+
+            // Iterate over each recipe in the collection
+            foreach (Recipe recipe in recipes)
+            {
+                // Check if the recipe contains any ingredient belonging to the specified food group
+                if (recipe.Ingredients.Any(ingredient => ingredient.FoodGroup.Equals(foodGroup, StringComparison.OrdinalIgnoreCase)))
+                {
+                    filteredRecipes.Add(recipe); // Add the recipe to the filtered list
+                }
+            }
+        }
+
+        public void FilterRecipesByMaxCalories(int maxCalories)
+        {
+            // Create a new list to store the filtered recipes
+            filteredRecipes = new List<Recipe>();
+
+            // Iterate over each recipe in the collection
+            foreach (Recipe recipe in recipes)
+            {
+                // Check if the total calories of the recipe is less than or equal to the specified maximum calories
+                if (recipe.GetTotalCalories() <= maxCalories)
+                {
+                    filteredRecipes.Add(recipe); // Add the recipe to the filtered list
+                }
+            }
+        }
+
+        // Method to set the ingredient name filter
+        public void SetIngredientNameFilter(string ingredientName)
+        {
+            filterIngredientName = ingredientName;
+        }
+
+        // Method to set the food group filter
+        public void SetFoodGroupFilter(string foodGroup)
+        {
+            filterFoodGroup = foodGroup;
+        }
+
+        // Method to set the maximum calories filter
+        public void SetMaxCaloriesFilter(int? maxCalories)
+        {
+            filterMaxCalories = maxCalories;
+        }
+
 
     }
 }

@@ -20,8 +20,7 @@ namespace POE_Application_WPF
     /// </summary>
     public partial class AddRecipeWindow : Window
     {
-      
-
+        //declaring the variables as public, so they can be accessed and manipulated from other parts of the code or from other classes.
         public string recipeName;
         public int numSteps;
         public int numIngredients;
@@ -42,16 +41,18 @@ namespace POE_Application_WPF
 
         private void RecipeNameTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            recipeName = Recipe_Name_TextBox.Text;
-            //Recipe r = new Recipe(recipeName);
+            recipeName = Recipe_Name_TextBox.Text;//retrieves the text entered in the Recipe_Name_TextBox and assigns it to the recipeName variable.
+
         }
 
         private void Num_Of_Ingredients_TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(Num_Of_Ingredients_TextBox.Text))
+            if (!string.IsNullOrWhiteSpace(Num_Of_Ingredients_TextBox.Text))// Check if the value entered in the Num_Of_Ingredients_TextBox is not null, empty, or consists only of white spaces
             {
+                // Check if the value entered in the Num_Of_Ingredients_TextBox is a valid integer
                 if (int.TryParse(Num_Of_Ingredients_TextBox.Text, out int result))
                 {
+                    // If the parsing is successful, assign the parsed value to the numSteps variable
                     numIngredients = result;
                 }
                 else
@@ -70,11 +71,11 @@ namespace POE_Application_WPF
 
         private void Number_Of_Steps_TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(Number_Of_Steps_TextBox.Text))
+            if (!string.IsNullOrWhiteSpace(Number_Of_Steps_TextBox.Text))// Check if the value entered in the Number_Of_Steps_TextBox is not null, empty, or consists only of white spaces
             {
-                if (int.TryParse(Number_Of_Steps_TextBox.Text, out int result))
+                if (int.TryParse(Number_Of_Steps_TextBox.Text, out int result))// Check if the value entered in the Number_Of_Steps_TextBox is a valid integer
                 {
-                    numSteps = result;
+                    numSteps = result;// If the parsing is successful, assign the parsed value to the numSteps variable
                 }
                 else
                 {
@@ -92,11 +93,8 @@ namespace POE_Application_WPF
 
         private   void Print_Button_Click(object sender, RoutedEventArgs e)
         {
-
-             RecipeCollection.Instance.EnterRecipe(recipeName, numIngredients, numSteps);
-
-           
-
+            // Call the EnterRecipe method on the RecipeCollection.Instance object, passing the recipe name, number of ingredients, and number of steps as parameters
+            RecipeCollection.Instance.EnterRecipe(recipeName, numIngredients, numSteps);
         }
 
         private void HideGridButton_Click(object sender, RoutedEventArgs e)
@@ -108,14 +106,20 @@ namespace POE_Application_WPF
 
         private void Main_menu_button_Click(object sender, RoutedEventArgs e)
         {
+            // Create a new instance of the MainWindow
             MainWindow mw = new MainWindow();
+
+            // Show the MainWindow
             mw.Show();
+
+            // Close the current window (DisplayRecipe window)
             Close();
         }
 
+
         private void List_Click(object sender, RoutedEventArgs e)
         {
-            RecipeCollection.Instance.DisplayRecipeList();
+            RecipeCollection.Instance.DisplayRecipeList();// Call the DisplayRecipeList method on the RecipeCollection.Instance object
         }
 
         private void Ingredient_Name_TextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -154,23 +158,6 @@ namespace POE_Application_WPF
         {
             FoodGroup = Food_Group_TextBox.Text;
         }
-
-        private void ClearRecipeTextBoxes()
-        {
-            Recipe_Name_TextBox.Text = string.Empty;
-            Num_Of_Ingredients_TextBox.Text = string.Empty;
-            Number_Of_Steps_TextBox.Text = string.Empty;
-        }
-
-       public void ClearIngredientTextBoxes()
-        {
-            Ingredient_Name_TextBox.Text = string.Empty;
-            Quantity_TextBox.Text = string.Empty;
-            Unit_Of_measurment_TextBox.Text = string.Empty;
-            Calories_TextBox.Text = string.Empty;
-            Food_Group_TextBox.Text = string.Empty;
-        }
-
     
     }
 }
